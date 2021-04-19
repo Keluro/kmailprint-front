@@ -7,7 +7,7 @@ const DonationSection: React.FC = () => {
   return (
     <>
       <p>
-        <span>{t('EntireEmailStr')} &nbsp;</span>
+        <span>{t('Suggestions')} &nbsp;</span>
         <a href="mailto:benoit.patra@gmail.com" target="_blank">
           benoit.patra@gmail.com
         </a>

@@ -35,7 +35,7 @@ export default {
   YesStr: 'Yes',
   NoStr: 'No',
   SupportKMailPrintHosting:
-    'KMailPrint services are hosted and maintained freely by ',
+    'KMailPrint services are hosted and maintained freely by',
   SupportKMailPrintHosting2: 'Support KMailPrint by making a donation.',
   Yes: 'Yes',
   No: 'No'

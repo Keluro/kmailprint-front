@@ -13,7 +13,7 @@ const DonationSection: React.FC = () => {
         </a>
       </p>
       <p>
-        <span>{t('SupportKMailPrintHosting')}</span>
+        <span>{t('SupportKMailPrintHosting')} &nbsp;</span>
         <span>
           <a href="https://benoitpatra.com/about" target="_blank">
             Benoit Patra.

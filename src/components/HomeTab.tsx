@@ -7,7 +7,7 @@ import { LocaleContext } from '../locales/LocaleContext';
 const HomeTab: React.FC = () => {
   const _onChange = () => console.log('clickToggle');
   const _onClick = () => console.log('On Click');
-  const t = React.useContext(LocaleContext).t;
+  const { t } = React.useContext(LocaleContext);
 
   return (
     <>

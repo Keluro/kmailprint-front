@@ -1,17 +1,15 @@
 import React from 'react';
-import { Pivot, PivotItem } from '@fluentui/react';
-import HomeTab from './HomeTab';
+
+import AddinApp from './AddinApp';
+import LocaleProvider from './locales/LocaleContext';
+import ToggleLocale from './locales/ToggleLocale';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Pivot>
-        <PivotItem headerText="Home">
-          <HomeTab />
-        </PivotItem>
-        <PivotItem headerText="Pdf Title"></PivotItem>
-      </Pivot>
-    </div>
+    <LocaleProvider>
+      <ToggleLocale></ToggleLocale>
+      <AddinApp />
+    </LocaleProvider>
   );
 };
 

@@ -1,16 +1,19 @@
 import React from 'react';
+import { LocaleContext } from '../locales/LocaleContext';
 
 const DonationSection: React.FC = () => {
+  const { t } = React.useContext(LocaleContext);
+
   return (
     <>
       <p>
-        <span>Suggestions or bugs? Mail me!</span>
+        <span>{t('EntireEmailStr')} &nbsp;</span>
         <a href="mailto:benoit.patra@gmail.com" target="_blank">
           benoit.patra@gmail.com
         </a>
       </p>
       <p>
-        <span>KMailPrint services are hosted and maintained freely by </span>
+        <span>{t('SupportKMailPrintHosting')}</span>
         <span>
           <a href="https://benoitpatra.com/about" target="_blank">
             Benoit Patra.
@@ -18,7 +21,7 @@ const DonationSection: React.FC = () => {
         </span>
       </p>
       <p>
-        <span>Support KMailPrint by making a donation.</span>
+        <span>{t('SupportKMailPrintHosting2')}</span>
       </p>
       <form
         action="https://www.paypal.com/cgi-bin/webscr"

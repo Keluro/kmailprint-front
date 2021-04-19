@@ -9,7 +9,6 @@ import {
 } from '@fluentui/react/lib/DetailsList';
 import { MarqueeSelection } from '@fluentui/react/lib/MarqueeSelection';
 import { mergeStyles } from '@fluentui/react/lib/Styling';
-import { Text } from '@fluentui/react/lib/Text';
 
 const exampleChildClass = mergeStyles({
   display: 'block',

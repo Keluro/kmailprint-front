@@ -2,23 +2,34 @@ import React from 'react';
 import { Pivot, PivotItem } from '@fluentui/react';
 import HomeTab from './components/HomeTab';
 import { DetailsListBasicExample } from './components/TitleBuilderTab';
-import { LocaleContext } from './locales/LocaleContext';
+import { LocaleContext } from './providers/LocaleContext';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { ThemeProvider } from '@fluentui/react-theme-provider';
+import { MessageBarProvider } from './providers/MessageBarContext';
 
 const AddinApp: React.FC = () => {
+  const tabCss: React.CSSProperties = {
+    padding: '5px 10px'
+  };
+
   const { t } = React.useContext(LocaleContext);
   initializeIcons();
   return (
     <ThemeProvider>
-      <Pivot>
-        <PivotItem headerText={t('Home')}>
-          <HomeTab />
-        </PivotItem>
-        <PivotItem headerText={t('PdfTitle')}>
-          <DetailsListBasicExample></DetailsListBasicExample>
-        </PivotItem>
-      </Pivot>
+      <MessageBarProvider>
+        <Pivot>
+          <PivotItem headerText={t('Home')}>
+            <div style={tabCss}>
+              <HomeTab />
+            </div>
+          </PivotItem>
+          <PivotItem headerText={t('PdfTitle')}>
+            <div style={tabCss}>
+              <DetailsListBasicExample></DetailsListBasicExample>
+            </div>
+          </PivotItem>
+        </Pivot>
+      </MessageBarProvider>
     </ThemeProvider>
   );
 };

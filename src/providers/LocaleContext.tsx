@@ -1,7 +1,7 @@
 import { Toggle } from '@fluentui/react';
 import React from 'react';
-import enStrings from './en';
-import frStrings from './fr';
+import enStrings from '../locales/en';
+import frStrings from '../locales/fr';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => '',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LocaleContext } from '../locales/LocaleContext';
+import { LocaleContext } from '../providers/LocaleContext';
 
 const DonationSection: React.FC = () => {
   const { t } = React.useContext(LocaleContext);

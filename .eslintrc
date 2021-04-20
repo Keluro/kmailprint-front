@@ -1,12 +1,19 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "no-empty-function": "warn",
+        "@typescript-eslint/no-empty-function": "warn"
+      }
+    }
   ]
 }

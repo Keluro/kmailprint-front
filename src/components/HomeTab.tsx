@@ -6,7 +6,9 @@ import { LocaleContext } from '../providers/LocaleContext';
 import { MessageBarContext } from '../providers/MessageBarContext';
 
 const HomeTab: React.FC = () => {
-  const { setMessage } = React.useContext(MessageBarContext);
+  const { setIsError, setVisibility, setMessageContent } = React.useContext(
+    MessageBarContext
+  );
   const timeout = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
@@ -15,9 +17,16 @@ const HomeTab: React.FC = () => {
     await timeout(3000);
   };
   const _onClick = async () => {
-    setMessage('processing...');
+    setIsError(false);
+    setVisibility(true);
+    setMessageContent('processing...');
     await timeout(3000);
-    setMessage('Completed!!!');
+    setMessageContent('still processing...');
+    await timeout(4000);
+    setIsError(true);
+    setMessageContent('failure!');
+    await timeout(1000);
+    setVisibility(false);
   };
   const { t } = React.useContext(LocaleContext);
 

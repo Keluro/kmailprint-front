@@ -1,13 +1,10 @@
-import { Toggle } from '@fluentui/react';
 import React from 'react';
 import enStrings from '../locales/en';
 import frStrings from '../locales/fr';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => '',
-  toggleLocale: function () {
-    //
-  }
+  toggleLocale: () => {}
 });
 
 export type LocaleContextType = {
@@ -19,7 +16,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const LocaleProvider = ({ children }: Props) => {
+export const LocaleProvider = ({ children }: Props): JSX.Element => {
   const [locale, setLocale] = React.useState('en');
 
   const toggleLocale = () => {

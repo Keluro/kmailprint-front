@@ -41,5 +41,6 @@ export default {
     'Les services KMailPrint sont maintenus et hébergés gratuitement par',
   SupportKMailPrintHosting2: 'Supportez KMailPrint en faisant un don.',
   Yes: 'Oui',
-  No: 'Non'
+  No: 'Non',
+  Close: 'Fermer'
 } as { [key: string]: string };

@@ -3,12 +3,17 @@ import { PrimaryButton } from '@fluentui/react/lib/Button';
 import { Toggle } from '@fluentui/react/lib/Toggle';
 import DonationSection from './DonationSection';
 import { LocaleContext } from '../providers/LocaleContext';
-import { MessageBarContext } from '../providers/MessageBarContext';
+import { MessageBarContext, LinkInfo } from '../providers/MessageBarContext';
+import { MessageBar, MessageBarType } from '@fluentui/react';
 
 const HomeTab: React.FC = () => {
-  const { setIsError, setVisibility, setMessageContent } = React.useContext(
-    MessageBarContext
-  );
+  const {
+    setType,
+    open,
+    close,
+    setMessageContent,
+    setLinkInfo
+  } = React.useContext(MessageBarContext);
   const timeout = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
@@ -17,16 +22,23 @@ const HomeTab: React.FC = () => {
     await timeout(3000);
   };
   const _onClick = async () => {
-    setIsError(false);
-    setVisibility(true);
+    setType(MessageBarType.info);
     setMessageContent('processing...');
+    setLinkInfo(undefined);
+    open();
     await timeout(3000);
-    setMessageContent('still processing...');
+    setType(MessageBarType.success);
+    setMessageContent('still processing, looks good...');
+    setLinkInfo({
+      url: 'https://www.benoitpatra.com',
+      newWindow: true,
+      displayText: 'myBlog you can check this out this is pure bomb!'
+    });
     await timeout(4000);
-    setIsError(true);
+    setType(MessageBarType.warning);
     setMessageContent('failure!');
     await timeout(1000);
-    setVisibility(false);
+    close();
   };
   const { t } = React.useContext(LocaleContext);
 
@@ -39,7 +51,9 @@ const HomeTab: React.FC = () => {
         offText={t('No')}
         onChange={_onChange}
       />
-      <PrimaryButton onClick={_onClick}>{t('PrintPDF')}</PrimaryButton>
+      <PrimaryButton onClick={_onClick} style={{ marginTop: '10px' }}>
+        {t('PrintPDF')}
+      </PrimaryButton>
       <DonationSection></DonationSection>
     </>
   );

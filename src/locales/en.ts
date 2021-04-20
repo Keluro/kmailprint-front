@@ -38,5 +38,6 @@ export default {
     'KMailPrint services are hosted and maintained freely by',
   SupportKMailPrintHosting2: 'Support KMailPrint by making a donation.',
   Yes: 'Yes',
-  No: 'No'
+  No: 'No',
+  Close: 'Close'
 } as { [key: string]: string };

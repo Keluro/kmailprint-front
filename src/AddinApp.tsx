@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pivot, PivotItem } from '@fluentui/react';
 import HomeTab from './components/HomeTab';
-import { DetailsListBasicExample } from './components/TitleBuilderTab';
+import TitleBuilderTab from './components/TitleBuilderTab';
 import { LocaleContext } from './providers/LocaleContext';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { ThemeProvider } from '@fluentui/react-theme-provider';
@@ -25,7 +25,7 @@ const AddinApp: React.FC = () => {
           </PivotItem>
           <PivotItem headerText={t('PdfTitle')}>
             <div style={tabCss}>
-              <DetailsListBasicExample></DetailsListBasicExample>
+              <TitleBuilderTab></TitleBuilderTab>
             </div>
           </PivotItem>
         </Pivot>

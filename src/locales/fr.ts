@@ -12,7 +12,7 @@ export default {
     'Visitez la page notre solution pour entreprise KMailAssistant',
   VisitKeluroURL: 'http://keluro.com/fr/software/kmailassistant/',
   Add: 'Ajouter',
-  FileTile: 'Titre du fichier :',
+  FileTile: 'Titre du fichier',
   Subject: 'Sujet',
   NormSubject: 'Sujet normalisé',
   Datetimesent: "Date d'envoi",

@@ -10,6 +10,7 @@ import {
 } from '@fluentui/react';
 import MovingElementList from './MovingElementList';
 import { LocaleContext } from '../providers/LocaleContext';
+import { Separator } from '@fluentui/react/lib/Separator';
 
 const FileTitleBuilder: React.FC = () => {
   const { t } = React.useContext(LocaleContext);
@@ -97,8 +98,14 @@ const FileTitleBuilder: React.FC = () => {
         moveUpItem={moveUpItem}
         moveDownItem={moveDownItem}
       />
-      <Text>{t('FileTile')}</Text>
-      <Text>{selectedParts.map((e) => e.text).join('-')}</Text>
+      <div style={{ marginTop: 20, marginBottom: 10 }}>
+        <Separator>
+          <Text style={{ fontWeight: 'bold' }}>{t('FileTile')}</Text>
+        </Separator>
+      </div>
+      <Text style={{ fontStyle: 'italic' }}>
+        {selectedParts.map((e) => e.text).join('-')}
+      </Text>
     </>
   );
 };

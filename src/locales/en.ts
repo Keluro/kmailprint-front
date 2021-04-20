@@ -11,7 +11,7 @@ export default {
   VisitKeluroMSG: 'Visit the webpage of our enterprise solution KMailAssistant',
   VisitKeluroURL: 'http://keluro.com/software/kmailassistant/',
   Add: 'Add',
-  FileTile: 'File title:',
+  FileTile: 'File title',
   Subject: 'Subject',
   NormSubject: 'Normalized subject',
   Datetimesent: 'Datetime sent',

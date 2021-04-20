@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { getRTL } from '@fluentui/react/lib/Utilities';
-import { FocusZone, FocusZoneDirection } from '@fluentui/react/lib/FocusZone';
-import { TextField } from '@fluentui/react/lib/TextField';
-import { Image, ImageFit } from '@fluentui/react/lib/Image';
 import { Icon } from '@fluentui/react/lib/Icon';
 import { List } from '@fluentui/react/lib/List';
 import {
@@ -11,7 +7,6 @@ import {
   getTheme,
   getFocusStyle
 } from '@fluentui/react/lib/Styling';
-import { getStyleFromPropsAndOptions } from '@fluentui/react-theme-provider';
 
 const theme: ITheme = getTheme();
 const { palette, semanticColors, fonts } = theme;

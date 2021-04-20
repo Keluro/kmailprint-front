@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LocaleContext } from '../providers/LocaleContext';
 
-export default () => {
+export default (): JSX.Element => {
   return (
     <LocaleContext.Consumer>
       {(localeVal) => (

@@ -21,27 +21,33 @@ const FileTitleBuilder: React.FC = () => {
     'SenderName',
     'SenderEmail'
   ];
-  const options: IComboBoxOption[] = keys.map((key) => {
-    return {
-      key: key,
-      text: t(key)
-    };
-  });
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   const buttonStyles: Partial<IButtonStyles> = {
     root: { display: 'block', margin: '10px 0 20px' }
   };
 
+  const updateOptionsComboBox = () => {
+    const selectedPartKeys = selectedParts.map((i) => i.key);
+    return keys.map((key) => {
+      return {
+        key: key,
+        text: t(key),
+        disabled: selectedPartKeys.includes(key)
+      };
+    });
+  };
+
   const comboBoxRef = React.useRef<IComboBox>(null);
   const [selectedParts, setSelectedParts] = useState<IComboBoxOption[]>([]);
 
   const onClick = () => {
-    if (comboBoxRef.current?.selectedOptions) {
-      setSelectedParts([
-        ...selectedParts,
-        ...comboBoxRef.current?.selectedOptions
-      ]);
+    const selectedPartKeys = selectedParts.map((i) => i.key);
+    const toInsert = comboBoxRef.current?.selectedOptions.filter(
+      (item) => !selectedPartKeys.includes(item.key)
+    );
+    if (toInsert && toInsert.length > 0) {
+      setSelectedParts([...selectedParts, ...toInsert]);
     }
   };
 
@@ -80,7 +86,7 @@ const FileTitleBuilder: React.FC = () => {
       <ComboBox
         componentRef={comboBoxRef}
         defaultSelectedKey={keys[0]}
-        options={options}
+        options={updateOptionsComboBox()}
         styles={comboBoxStyles}
       />
       <PrimaryButton text={t('Add')} onClick={onClick} styles={buttonStyles} />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FileTitleBuilder from './FileTitleBuilder';
 
-const TitleBuilderTab = () => {
+const TitleBuilderTab = (): JSX.Element => {
   return <FileTitleBuilder />;
 };
 

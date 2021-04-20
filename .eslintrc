@@ -11,7 +11,7 @@
     {
       "files": ["*.tsx"],
       "rules": {
-        "@typescript-eslint/no-empty-function": "no"
+        "@typescript-eslint/no-empty-function": "off"
       }
     }
   ]

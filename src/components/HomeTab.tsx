@@ -3,8 +3,8 @@ import { PrimaryButton } from '@fluentui/react/lib/Button';
 import { Toggle } from '@fluentui/react/lib/Toggle';
 import DonationSection from './DonationSection';
 import { LocaleContext } from '../providers/LocaleContext';
-import { MessageBarContext, LinkInfo } from '../providers/MessageBarContext';
-import { MessageBar, MessageBarType } from '@fluentui/react';
+import { MessageBarContext } from '../providers/MessageBarContext';
+import { MessageBarType } from '@fluentui/react';
 
 const HomeTab: React.FC = () => {
   const {

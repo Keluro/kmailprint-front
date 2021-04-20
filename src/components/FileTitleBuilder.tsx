@@ -11,33 +11,37 @@ import {
 import MovingElementList from './MovingElementList';
 import { LocaleContext } from '../providers/LocaleContext';
 import { Separator } from '@fluentui/react/lib/Separator';
+import {
+  FileTitleTranslation,
+  FileTitleBuilderService,
+  FileTitleKind
+} from '../services/FileTitleBuilderService';
+import { MockOutlookService } from '../services/MockOutlookService';
+import TextAsync from './TextAsync';
 
 const FileTitleBuilder: React.FC = () => {
   const { t } = React.useContext(LocaleContext);
-
-  const keys = [
-    'Subject',
-    'NormSubject',
-    'Datetimesent',
-    'SenderName',
-    'SenderEmail'
-  ];
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   const buttonStyles: Partial<IButtonStyles> = {
     root: { display: 'block', margin: '10px 0 20px' }
   };
 
+  const keys = Object.keys(FileTitleTranslation);
+  console.log(keys);
   const updateOptionsComboBox = () => {
     const selectedPartKeys = selectedParts.map((i) => i.key);
-    return keys.map((key) => {
+    return keys.map((key: string) => {
+      const translationKey = FileTitleTranslation[key] as string;
       return {
         key: key,
-        text: t(key),
+        text: t(translationKey),
         disabled: selectedPartKeys.includes(key)
       };
     });
   };
+
+  const outlookService = new MockOutlookService();
 
   const comboBoxRef = React.useRef<IComboBox>(null);
   const [selectedParts, setSelectedParts] = useState<IComboBoxOption[]>([]);
@@ -103,9 +107,12 @@ const FileTitleBuilder: React.FC = () => {
           <Text style={{ fontWeight: 'bold' }}>{t('FileTile')}</Text>
         </Separator>
       </div>
-      <Text style={{ fontStyle: 'italic' }}>
-        {selectedParts.map((e) => e.text).join('-')}
-      </Text>
+      <TextAsync
+        stringPromise={FileTitleBuilderService(
+          outlookService,
+          selectedParts.map((e) => e.key as FileTitleKind)
+        )}
+      />
     </>
   );
 };

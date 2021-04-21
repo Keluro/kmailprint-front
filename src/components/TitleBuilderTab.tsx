@@ -19,7 +19,7 @@ import { MockOutlookService } from '../services/MockOutlookService';
 import TextAsync from './TextAsync';
 import {
   savePatternArray,
-  getPatternArray
+  getPatternArrayOrDefault
 } from '../services/LocalStorageService';
 
 const TitleBuilderTab: React.FC = () => {
@@ -45,19 +45,13 @@ const TitleBuilderTab: React.FC = () => {
     });
   };
 
-  const setAndSaveSelectectParts = (partsToSave: IItemKey[]) => {
+  const setAndSaveSelectedParts = (partsToSave: IItemKey[]) => {
     savePatternArray(partsToSave.map((s) => s.key as string));
     setSelectedParts(partsToSave);
   };
 
   const getDefaultSavedPattern = () => {
-    let savedPatternKeys = getPatternArray();
-    if (!savedPatternKeys) {
-      savedPatternKeys = [
-        FileTitleKind.Subject,
-        FileTitleKind.SenderEmailAddress
-      ];
-    }
+    const savedPatternKeys = getPatternArrayOrDefault();
     return savedPatternKeys.map((key) => {
       const translationKey = FileTitleTranslation[key] as string;
       return { key: key, text: t(translationKey) } as IItemKey;
@@ -71,7 +65,7 @@ const TitleBuilderTab: React.FC = () => {
       (item) => !selectedPartKeys.includes(item.key)
     );
     if (toInsert && toInsert.length > 0) {
-      setAndSaveSelectectParts([...selectedParts, ...toInsert]);
+      setAndSaveSelectedParts([...selectedParts, ...toInsert]);
     }
   };
 
@@ -89,7 +83,7 @@ const TitleBuilderTab: React.FC = () => {
       clonedArray[index] = selectedParts[index - swapIndex];
       clonedArray[index - swapIndex] = swap;
     }
-    setAndSaveSelectectParts(clonedArray);
+    setAndSaveSelectedParts(clonedArray);
   };
 
   const moveUpItem = (key: string) => {
@@ -101,7 +95,7 @@ const TitleBuilderTab: React.FC = () => {
   };
 
   const removeItem = (key: string) => {
-    setAndSaveSelectectParts(selectedParts.filter((item) => item.key !== key));
+    setAndSaveSelectedParts(selectedParts.filter((item) => item.key !== key));
   };
 
   const { t } = React.useContext(LocaleContext);

@@ -1,3 +1,5 @@
+import { FileTitleKind } from './FileTitleBuilderService';
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const savePatternArray = (array: string[]) => {
   try {
@@ -7,7 +9,7 @@ export const savePatternArray = (array: string[]) => {
   }
 };
 
-export const getPatternArray = () => {
+const getPatternArray = () => {
   try {
     const str = window.localStorage.getItem('FILETITLE2');
     if (typeof str === 'string' && str !== '') {
@@ -17,4 +19,15 @@ export const getPatternArray = () => {
   } catch (ex) {
     console.log('Cannot access localStorage for getting');
   }
+};
+
+export const getPatternArrayOrDefault = () => {
+  let savedPatternKeys = getPatternArray();
+  if (!savedPatternKeys) {
+    savedPatternKeys = [
+      FileTitleKind.Subject,
+      FileTitleKind.SenderEmailAddress
+    ];
+  }
+  return savedPatternKeys as FileTitleKind[];
 };

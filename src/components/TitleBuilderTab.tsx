@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import {
   ComboBox,
   IComboBox,
-  IComboBoxOption,
   IButtonStyles,
   IComboBoxStyles,
   PrimaryButton,
   Text
 } from '@fluentui/react';
-import MovingElementList from './MovingElementList';
+import MovingElementList, { IItemKey } from './MovingElementList';
 import { LocaleContext } from '../providers/LocaleContext';
 import { Separator } from '@fluentui/react/lib/Separator';
 import {
@@ -18,55 +17,57 @@ import {
 } from '../services/FileTitleBuilderService';
 import { MockOutlookService } from '../services/MockOutlookService';
 import TextAsync from './TextAsync';
-import { savePatternArray } from '../services/LocalStorageService';
+import {
+  savePatternArray,
+  getPatternArray
+} from '../services/LocalStorageService';
 
 const TitleBuilderTab: React.FC = () => {
-  const { t } = React.useContext(LocaleContext);
-  const comboBoxRef = React.useRef<IComboBox>(null);
-  const [selectedParts, setSelectedParts] = useState<IComboBoxOption[]>([]);
-
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   const buttonStyles: Partial<IButtonStyles> = {
     root: { display: 'block', margin: '10px 0 20px' }
   };
 
-  const keys = Object.keys(FileTitleTranslation);
+  type IOptionItemKey = IItemKey & { disabled: boolean };
+
+  const allKeys = Object.keys(FileTitleTranslation);
   const outlookService = new MockOutlookService();
 
   const updateOptionsComboBox = () => {
     const selectedPartKeys = selectedParts.map((i) => i.key);
-    return keys.map((key: string) => {
+    return allKeys.map((key: string) => {
       const translationKey = FileTitleTranslation[key] as string;
       return {
         key: key,
         text: t(translationKey),
         disabled: selectedPartKeys.includes(key)
-      };
+      } as IOptionItemKey;
     });
   };
 
-  const setAndSaveSelectectParts = (partsToSave: IComboBoxOption[]) => {
+  const setAndSaveSelectectParts = (partsToSave: IItemKey[]) => {
     savePatternArray(partsToSave.map((s) => s.key as string));
     setSelectedParts(partsToSave);
   };
 
-  // const getDefaultSavedPattern = () => {
-  //   let savedPatternKeys = getPatternArray();
-  //   if (!savedPatternKeys) {
-  //     savedPatternKeys = [
-  //       FileTitleKind.Subject,
-  //       FileTitleKind.SenderEmailAddress
-  //     ];
-  //     return [];
-  //   }
-  //   return comboBoxRef.current?.selectedOptions.filter((item) =>
-  //     (savedPatternKeys as string[]).includes(item.key as string)
-  //   );
-  // };
+  const getDefaultSavedPattern = () => {
+    let savedPatternKeys = getPatternArray();
+    if (!savedPatternKeys) {
+      savedPatternKeys = [
+        FileTitleKind.Subject,
+        FileTitleKind.SenderEmailAddress
+      ];
+    }
+    return savedPatternKeys.map((key) => {
+      const translationKey = FileTitleTranslation[key] as string;
+      return { key: key, text: t(translationKey) } as IItemKey;
+    });
+  };
 
   const onClick = () => {
     const selectedPartKeys = selectedParts.map((i) => i.key);
-    const toInsert = comboBoxRef.current?.selectedOptions.filter(
+    const toInsert = (comboBoxRef.current
+      ?.selectedOptions as IItemKey[]).filter(
       (item) => !selectedPartKeys.includes(item.key)
     );
     if (toInsert && toInsert.length > 0) {
@@ -74,41 +75,46 @@ const TitleBuilderTab: React.FC = () => {
     }
   };
 
-  const moveUpItem = (key: number | string) => {
+  const move = (
+    key: string,
+    condition: (index: number) => boolean,
+    swapIndex: number
+  ) => {
     const clonedArray = [...selectedParts];
     const index = clonedArray.findIndex((item) => item.key == key);
-    if (index <= 0) {
-      throw new Error('Not supported index limits (lowerbound)');
+    if (condition(index)) {
+      throw new Error('Not supported index limits');
     } else {
       const swap = clonedArray[index];
-      clonedArray[index] = selectedParts[index - 1];
-      clonedArray[index - 1] = swap;
+      clonedArray[index] = selectedParts[index - swapIndex];
+      clonedArray[index - swapIndex] = swap;
     }
     setAndSaveSelectectParts(clonedArray);
   };
 
-  const moveDownItem = (key: number | string) => {
-    const clonedArray = [...selectedParts];
-    const index = clonedArray.findIndex((item) => item.key == key);
-    if (index >= clonedArray.length - 1) {
-      throw new Error('Not supported index limits (upperbound)');
-    } else {
-      const swap = clonedArray[index];
-      clonedArray[index] = selectedParts[index + 1];
-      clonedArray[index + 1] = swap;
-    }
-    setAndSaveSelectectParts(clonedArray);
+  const moveUpItem = (key: string) => {
+    move(key, (index) => index <= 0, 1);
   };
 
-  const removeItem = (key: number | string) => {
+  const moveDownItem = (key: string) => {
+    move(key, (index) => index >= selectedParts.length - 1, -1);
+  };
+
+  const removeItem = (key: string) => {
     setAndSaveSelectectParts(selectedParts.filter((item) => item.key !== key));
   };
+
+  const { t } = React.useContext(LocaleContext);
+  const comboBoxRef = React.useRef<IComboBox>(null);
+  const [selectedParts, setSelectedParts] = useState<IItemKey[]>(
+    getDefaultSavedPattern()
+  );
 
   return (
     <>
       <ComboBox
         componentRef={comboBoxRef}
-        defaultSelectedKey={keys[0]}
+        defaultSelectedKey={allKeys[0]}
         options={updateOptionsComboBox()}
         styles={comboBoxStyles}
       />

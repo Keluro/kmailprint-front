@@ -52,15 +52,15 @@ const classNames = mergeStyleSets({
 });
 
 export type IItemKey = {
-  key: string | number;
+  key: string;
   text: string;
 };
 
 export type MovingElementListProps = {
   items: IItemKey[];
-  removeItem: (key: number | string) => void;
-  moveUpItem: (key: number | string) => void;
-  moveDownItem: (key: number | string) => void;
+  removeItem: (key: string) => void;
+  moveUpItem: (key: string) => void;
+  moveDownItem: (key: string) => void;
 };
 
 const MovingElementList: React.FC<MovingElementListProps> = (
@@ -90,11 +90,13 @@ const MovingElementList: React.FC<MovingElementListProps> = (
                 onClick={() => props.moveDownItem(item?.key)}
               />
             )}
-            <Icon
-              className={classNames.icon}
-              iconName={'Cancel'}
-              onClick={() => props.removeItem(item?.key)}
-            />
+            {props.items.length > 1 && (
+              <Icon
+                className={classNames.icon}
+                iconName={'Cancel'}
+                onClick={() => props.removeItem(item?.key)}
+              />
+            )}
           </div>
         </div>
       )

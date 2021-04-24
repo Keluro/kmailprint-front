@@ -18,11 +18,11 @@ const OutlookMock: React.FC = () => {
     <LocaleProvider>
       <ToggleLocale></ToggleLocale>
       <div>
-        <h1>
+        <p>
           React free zone, outlook mock... Calling code should not depend on
           react...
-        </h1>
-        <button onClick={executePrintClick}></button>
+        </p>
+        <button onClick={executePrintClick}>Fire command!</button>
       </div>
       <div style={panelStyle}>
         <AddinApp />

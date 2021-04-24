@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocaleContext } from '../providers/LocaleContext';
+import { LocaleContext } from './LocaleContext';
 
 export default (): JSX.Element => {
   return (

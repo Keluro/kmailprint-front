@@ -1,6 +1,5 @@
 import React from 'react';
-import enStrings from '../locales/en';
-import frStrings from '../locales/fr';
+import { tLocale } from '../locales/i18n';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => '',
@@ -28,14 +27,7 @@ export const LocaleProvider = ({ children }: Props): JSX.Element => {
   };
 
   const t = (path: string) => {
-    switch (locale) {
-      case 'en':
-        return enStrings[path];
-      case 'fr':
-        return frStrings[path];
-      default:
-        throw new Error('No Locale set');
-    }
+    return tLocale(locale, path);
   };
 
   React.useEffect(() => {

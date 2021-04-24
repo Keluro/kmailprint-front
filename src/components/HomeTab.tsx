@@ -22,13 +22,10 @@ const HomeTab: React.FC = () => {
 
   const mailPrinterService: IMailPrinterService = new MockMailPrinterService();
   const outlookService: IOutlookService = new MockOutlookService();
+  const ioService = new IOService();
 
   const _onClick = async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).ga('send', 'event', 'KMailPrint', 'ButtonClick');
-      // eslint-disable-next-line no-empty
-    } catch {}
+    ioService.registerGoogleAnalyticsEvent('ButtonClick');
 
     const pattern = getPatternArrayOrDefault();
     let fileTitle;
@@ -51,35 +48,17 @@ const HomeTab: React.FC = () => {
         isEntireConv
       );
 
-      const ioService = new IOService();
-
       const urlToOpen = result.DownloadUrl;
-      if (outlookService.isJSFunction()) {
-        const dowloadLinkText = ioService.isSafari()
-          ? t('DownloadSafari')
-          : t('Download');
-        outlookService.showNotificationAndDialog(
-          t('SuccessfullyCreated'),
-          dowloadLinkText,
-          urlToOpen,
-          urlToOpen
-        );
-      } else {
-        //NB: with safari/Outlook For Mac, use a target _blank for visiting the .pdf otherwise the browser will navigate to it...
-        setType(MessageBarType.success);
-        setMessageContent(t('SuccessfullyCreated'));
-        setLinkInfo({
-          displayText: fileTitle,
-          url: urlToOpen,
-          newWindow: ioService.isSafari()
-        });
-      }
+      //NB: with safari/Outlook For Mac, use a target _blank for visiting the .pdf otherwise the browser will navigate to it...
+      setType(MessageBarType.success);
+      setMessageContent(t('SuccessfullyCreated'));
+      setLinkInfo({
+        displayText: fileTitle,
+        url: urlToOpen,
+        newWindow: ioService.isSafari()
+      });
 
       ioService.openfile(fileTitle, result.blob); //does not work in Safari...
-      //do not completeEvent it will:
-      //1) prevent persistent dialog opening in OWA
-      //2) crash outlook http://stackoverflow.com/questions/41059518/opening-dialogapi-from-ribbon-command-crashes-outlook-2016
-      //completeEvent();
     } catch (ex) {
       setType(MessageBarType.severeWarning);
       setMessageContent(t('CreatingFileFailed') + ': ' + ex);

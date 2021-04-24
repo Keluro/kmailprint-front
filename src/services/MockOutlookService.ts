@@ -2,11 +2,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IOutlookService } from './IOulookService';
 
+// TODO:
 const timeout = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 export class MockOutlookService implements IOutlookService {
   completeEvent(): void {
+    console.log('Complete event fired...');
     return;
   }
 
@@ -32,16 +34,16 @@ export class MockOutlookService implements IOutlookService {
     return Promise.resolve('2020-08-14 12:00');
   }
 
-  isJSFunction() {
-    return false;
+  async showNotification(text: string) {
+    console.log('Notification: ' + text);
   }
 
-  async showNotificationAndDialog(
-    text: string,
+  async showDownloadDialog(
     downloadText: string,
-    url: string,
+    urlToOpen: string,
     urlText: string
   ) {
+    console.log(`Show Dialog: ${downloadText}, ${urlText}, ${urlToOpen}`);
     // Office.context.mailbox.item.notificationMessages.replaceAsync('status', {
     //   type: 'informationalMessage',
     //   icon: 'pdf-icon-32',

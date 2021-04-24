@@ -4,15 +4,12 @@ export interface IOutlookService {
   getNormalizedSubjectAsync: () => Promise<string>;
   getSubjectAsync: () => Promise<string>;
   getDateTimeSentAsync: () => Promise<string>;
-
-  showNotificationAndDialog(
-    text: string,
-    downloadText: string,
-    url: string,
+  showNotification(text: string): void;
+  showDownloadDialog(
+    dowloadText: string,
+    urlToOpen: string,
     urlText: string
   ): void;
-
-  isJSFunction(): boolean;
 
   completeEvent(): void;
 }

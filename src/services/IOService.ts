@@ -1,21 +1,35 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { saveAs } from 'file-saver';
+import Bowser from 'bowser';
+import ReactGA from 'react-ga';
 
-//TODO:
+declare const ga: (
+  verb: string,
+  type: string,
+  info1: string,
+  info2: string
+) => void;
+
 export class IOService {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   openfile(fileTitle: string, blob: Blob) {
-    return;
+    saveAs(blob, fileTitle);
   }
 
-  isSafari() {
-    return false;
+  isSafari(): boolean {
+    const bowser = Bowser.getParser(window.navigator.userAgent);
+    const isSafari = bowser.getBrowserName().toLocaleLowerCase() === 'safari';
+    return isSafari;
   }
 
   registerGoogleAnalyticsEvent(kind: string) {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).ga('send', 'event', 'KMailPrint', kind);
-      // eslint-disable-next-line no-empty
-    } catch {}
+      ga('send', 'event', 'KMailPrint', kind);
+      ReactGA.event({
+        category: 'KMailPrint',
+        action: kind
+      });
+    } catch (ex) {
+      console.log('Cannot register google analytics events...');
+    }
   }
 }

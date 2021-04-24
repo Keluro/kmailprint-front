@@ -1,7 +1,7 @@
 import enStrings from '../locales/en';
 import frStrings from '../locales/fr';
 
-export const tLocale = (locale: string, path: string) => {
+export const tLocale = (locale: string, path: string): string => {
   switch (locale) {
     case 'en':
       return enStrings[path];

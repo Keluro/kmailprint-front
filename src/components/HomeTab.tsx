@@ -7,7 +7,11 @@ import { MessageBarContext } from '../providers/MessageBarContext';
 import { MessageBarType } from '@fluentui/react';
 import { MockMailPrinterService } from '../services/MockMailPrinterService';
 import IMailPrinterService from '../services/IMailPrinterService';
-import { getPatternArrayOrDefault } from '../services/LocalStorageService';
+import {
+  getPatternArrayOrDefault,
+  getIsEntireConversationOrDefault,
+  saveIsEntireConversation
+} from '../services/LocalStorageService';
 import { FileTitleBuilderService } from '../services/FileTitleBuilderService';
 import { IOutlookService } from '../services/IOulookService';
 import { MockOutlookService } from '../services/MockOutlookService';
@@ -18,7 +22,9 @@ const HomeTab: React.FC = () => {
     MessageBarContext
   );
 
-  const [isEntireConv, setIsEntireConv] = React.useState<boolean>(false);
+  const [isEntireConv, setIsEntireConv] = React.useState<boolean>(
+    getIsEntireConversationOrDefault()
+  );
 
   const mailPrinterService: IMailPrinterService = new MockMailPrinterService();
   const outlookService: IOutlookService = new MockOutlookService();
@@ -66,9 +72,13 @@ const HomeTab: React.FC = () => {
     }
   };
 
-  function _onChange(ev: React.MouseEvent<HTMLElement>, checked?: boolean) {
+  function _onChangeIsEntireConversation(
+    ev: React.MouseEvent<HTMLElement>,
+    checked?: boolean
+  ) {
     if (checked !== undefined) {
       setIsEntireConv(checked);
+      saveIsEntireConversation(checked);
     }
   }
 
@@ -78,8 +88,8 @@ const HomeTab: React.FC = () => {
     <>
       <Toggle
         label={t('EntireEmailStr')}
-        defaultChecked
-        onChange={_onChange}
+        defaultChecked={isEntireConv}
+        onChange={_onChangeIsEntireConversation}
         onText={t('Yes')}
         offText={t('No')}
       />

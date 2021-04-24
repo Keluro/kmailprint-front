@@ -1,13 +1,16 @@
 import { FileTitleBuilderService } from './FileTitleBuilderService';
 import IMailPrinterService from './IMailPrinterService';
 import { IOutlookService } from './IOulookService';
-import { getPatternArrayOrDefault } from './LocalStorageService';
+import {
+  getPatternArrayOrDefault,
+  getIsEntireConversationOrDefault
+} from './LocalStorageService';
 import { MockMailPrinterService } from './MockMailPrinterService';
 import { MockOutlookService } from './MockOutlookService';
 import { tLocale } from '../locales/i18n';
 import { IOService } from './IOService';
 
-export const executePrintClick = async () => {
+export const executePrintClick = async (): Promise<void> => {
   const mailPrinterService: IMailPrinterService = new MockMailPrinterService();
   const outlookService: IOutlookService = new MockOutlookService();
   const ioService = new IOService();
@@ -16,14 +19,15 @@ export const executePrintClick = async () => {
 
   const pattern = getPatternArrayOrDefault();
   const locale = 'en'; //TODO:
-  let isEntireConv: boolean = false; //TODO:
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+  const isEntireConv: boolean = getIsEntireConversationOrDefault();
   const t = (path: string) => tLocale(locale, path);
 
   outlookService.showNotification(t('Processing'));
 
-  let fileTitle = await FileTitleBuilderService(outlookService, pattern);
+  let fileTitle;
   try {
-    outlookService.showNotification(t('Processing'));
+    fileTitle = await FileTitleBuilderService(outlookService, pattern);
   } catch (ex) {
     outlookService.showNotification(t('FileTitleFailed') + ': ' + ex);
     outlookService.completeEvent();

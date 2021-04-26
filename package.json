@@ -5,10 +5,6 @@
   "dependencies": {
     "@fluentui/react": "^8.11.0",
     "@fluentui/react-theme-provider": "^0.18.5",
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.22",
     "@types/node": "^12.20.10",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
@@ -17,8 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-ga": "^3.3.0",
-    "react-promise": "^3.0.2",
-    "web-vitals": "^1.1.1"
+    "react-promise": "^3.0.2"
   },
   "scripts": {
     "start": "webpack serve --mode=development --open --hot",
@@ -28,8 +23,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {

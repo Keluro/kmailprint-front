@@ -5,7 +5,7 @@ import DonationSection from './DonationSection';
 import { LocaleContext } from '../providers/LocaleContext';
 import { MessageBarContext } from '../providers/MessageBarContext';
 import { MessageBarType } from '@fluentui/react';
-import { MockMailPrinterService } from '../services/MockMailPrinterService';
+import { MockMailPrinterService } from '../services/mocks/MockMailPrinterService';
 import IMailPrinterService from '../services/IMailPrinterService';
 import {
   getPatternArrayOrDefault,
@@ -14,7 +14,7 @@ import {
 } from '../services/LocalStorageService';
 import { FileTitleBuilderService } from '../services/FileTitleBuilderService';
 import { IOutlookService } from '../services/IOulookService';
-import { MockOutlookService } from '../services/MockOutlookService';
+import { MockOutlookService } from '../services/mocks/MockOutlookService';
 import { IOService } from '../services/IOService';
 
 const HomeTab: React.FC = () => {

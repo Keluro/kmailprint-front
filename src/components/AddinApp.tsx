@@ -1,11 +1,11 @@
 import React from 'react';
 import { Pivot, PivotItem } from '@fluentui/react';
-import HomeTab from './components/HomeTab';
-import TitleBuilderTab from './components/TitleBuilderTab';
-import { LocaleContext } from './providers/LocaleContext';
+import HomeTab from './HomeTab';
+import TitleBuilderTab from './TitleBuilderTab';
+import { LocaleContext } from '../providers/LocaleContext';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { ThemeProvider } from '@fluentui/react-theme-provider';
-import { MessageBarProvider } from './providers/MessageBarContext';
+import { MessageBarProvider } from '../providers/MessageBarContext';
 
 const AddinApp: React.FC = () => {
   const tabCss: React.CSSProperties = {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { IOutlookService } from './IOulookService';
+import { IOutlookService } from '../IOulookService';
 
 // TODO:
 const timeout = (ms: number) => {

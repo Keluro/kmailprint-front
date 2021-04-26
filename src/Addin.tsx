@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import OutlookMock from './OutlookMock';
 import ReactGA from 'react-ga';
+import AddinApp from './components/AddinApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <OutlookMock />
+    <AddinApp />
   </React.StrictMode>,
   document.getElementById('root')
 );

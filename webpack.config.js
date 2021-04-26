@@ -5,11 +5,14 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.tsx'
+    addin: './src/Addin.tsx',
+    commands: './src/commands.ts',
+    outlookmock: './src/OutlookMock.tsx'
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js',
+    clean: true
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -47,7 +50,18 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './public/index.html'
+      chunks: ['addin'],
+      template: 'public/react.html',
+      filename: 'addin.html'
+    }),
+    new HtmlWebPackPlugin({
+      chunks: ['outlookmock'],
+      template: 'public/react.html',
+      filename: 'index.html'
+    }),
+    new HtmlWebPackPlugin({
+      chunks: ['commands'],
+      filename: 'commands.html'
     })
   ]
 };

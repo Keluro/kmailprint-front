@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import IMailPrinterService, { PrinterResult } from './IMailPrinterService';
+import IMailPrinterService, { PrinterResult } from '../IMailPrinterService';
 
 const timeout = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));

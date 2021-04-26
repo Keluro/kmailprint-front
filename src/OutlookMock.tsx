@@ -1,20 +1,21 @@
 import React, { CSSProperties } from 'react';
-import AddinApp from './AddinApp';
+import ReactDOM from 'react-dom';
+import AddinApp from './components/AddinApp';
 import LocaleProvider from './providers/LocaleContext';
 import ToggleLocale from './providers/ToggleLocale';
 import { executePrintClick } from './services/PrintFunction';
 
-const OutlookMock: React.FC = () => {
-  const panelStyle: CSSProperties = {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    width: '320px',
-    border: '4px solid red'
-  };
+const panelStyle: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  width: '320px',
+  border: '4px solid red'
+};
 
-  return (
+ReactDOM.render(
+  <React.StrictMode>
     <LocaleProvider>
       <ToggleLocale></ToggleLocale>
       <div>
@@ -28,7 +29,6 @@ const OutlookMock: React.FC = () => {
         <AddinApp />
       </div>
     </LocaleProvider>
-  );
-};
-
-export default OutlookMock;
+  </React.StrictMode>,
+  document.getElementById('root')
+);

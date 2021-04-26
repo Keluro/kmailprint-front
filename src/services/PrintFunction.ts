@@ -5,8 +5,8 @@ import {
   getPatternArrayOrDefault,
   getIsEntireConversationOrDefault
 } from './LocalStorageService';
-import { MockMailPrinterService } from './MockMailPrinterService';
-import { MockOutlookService } from './MockOutlookService';
+import { MockMailPrinterService } from './mocks/MockMailPrinterService';
+import { MockOutlookService } from './mocks/MockOutlookService';
 import { tLocale } from '../locales/i18n';
 import { IOService } from './IOService';
 

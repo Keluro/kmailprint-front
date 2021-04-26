@@ -15,7 +15,7 @@ import {
   FileTitleBuilderService,
   FileTitleKind
 } from '../services/FileTitleBuilderService';
-import { MockOutlookService } from '../services/MockOutlookService';
+import { MockOutlookService } from '../services/mocks/MockOutlookService';
 import TextAsync from './TextAsync';
 import {
   savePatternArray,

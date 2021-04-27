@@ -22,8 +22,9 @@ export class MailPrinterService implements IMailPrinterService {
     };
 
     let result;
+    const server_url = process.env.API_URL;
     try {
-      result = await axios.post('/api/PrintPdf', data, {
+      result = await axios.post(`${server_url}/api/PrintPdf`, data, {
         responseType: 'arraybuffer'
       });
     } catch (ex) {

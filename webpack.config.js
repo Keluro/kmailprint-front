@@ -3,6 +3,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
@@ -52,20 +53,22 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       chunks: ['addin'],
-      template: 'public/react.html',
+      template: 'public/template.html',
       filename: 'addin.html'
     }),
     new HtmlWebPackPlugin({
       chunks: ['outlookmock'],
-      template: 'public/react.html',
+      template: 'public/template.html',
       filename: 'index.html'
     }),
     new HtmlWebPackPlugin({
       chunks: ['commands'],
+      template: 'public/template.html',
       filename: 'commands.html'
     }),
     new CopyPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }]
-    })
+    }),
+    new Dotenv()
   ]
 };

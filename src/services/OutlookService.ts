@@ -73,8 +73,9 @@ export class OutlookService implements IOutlookService {
       if (mailbox.item == undefined) {
         return;
       }
+      const server_url = process.env.API_URL;
       const url =
-        '/api/EmailsDateTimeSent?ewsUrl=' +
+        `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
         encodeURIComponent(mailbox.ewsUrl) +
         '&token=' +
         encodeURIComponent(token) +

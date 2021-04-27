@@ -1,8 +1,14 @@
+import { getStyleFromPropsAndOptions } from '@fluentui/react-theme-provider';
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import AddinApp from './components/AddinApp';
 import LocaleProvider from './providers/LocaleContext';
 import ToggleLocale from './providers/ToggleLocale';
+import { IOService } from './services/IOService';
+import { MailPrinterService } from './services/MailPrinterService';
+import { MockMailPrinterService } from './services/mocks/MockMailPrinterService';
+import { MockOutlookService } from './services/mocks/MockOutlookService';
+import { OutlookService } from './services/OutlookService';
 import { speedPrint } from './services/PrintFunction';
 
 const panelStyle: CSSProperties = {
@@ -14,10 +20,16 @@ const panelStyle: CSSProperties = {
   border: '4px solid red'
 };
 
-const printFunction = () => speedPrint(null);
+const outlookService = new MockOutlookService();
+const ioService = new IOService();
+const mailprinterService = new MockMailPrinterService();
+
+const printFunction = () =>
+  speedPrint(null, { outlookService, ioService, mailprinterService });
+
 ReactDOM.render(
   <React.StrictMode>
-    <LocaleProvider>
+    <LocaleProvider outlookService={outlookService}>
       <ToggleLocale></ToggleLocale>
       <div>
         <p>
@@ -27,7 +39,9 @@ ReactDOM.render(
         <button onClick={printFunction}>Fire command!</button>
       </div>
       <div style={panelStyle}>
-        <AddinApp />
+        <AddinApp
+          {...{ services: { outlookService, ioService, mailprinterService } }}
+        />
       </div>
     </LocaleProvider>
   </React.StrictMode>,

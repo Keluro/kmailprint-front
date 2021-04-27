@@ -13,11 +13,9 @@ import {
   saveIsEntireConversation
 } from '../services/LocalStorageService';
 import { FileTitleBuilderService } from '../services/FileTitleBuilderService';
-import { IOutlookService } from '../services/IOulookService';
-import { MockOutlookService } from '../services/mocks/MockOutlookService';
-import { IOService } from '../services/IOService';
+import { IServiceProps } from './IServiceProps';
 
-const HomeTab: React.FC = () => {
+const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
   const { setType, open, setMessageContent, setLinkInfo } = React.useContext(
     MessageBarContext
   );
@@ -26,17 +24,16 @@ const HomeTab: React.FC = () => {
     getIsEntireConversationOrDefault()
   );
 
-  const mailPrinterService: IMailPrinterService = new MockMailPrinterService();
-  const outlookService: IOutlookService = new MockOutlookService();
-  const ioService = new IOService();
-
   const _onClick = async () => {
-    ioService.registerGoogleAnalyticsEvent('ButtonClick');
+    props.services.ioService.registerGoogleAnalyticsEvent('ButtonClick');
 
     const pattern = getPatternArrayOrDefault();
     let fileTitle;
     try {
-      fileTitle = await FileTitleBuilderService(outlookService, pattern);
+      fileTitle = await FileTitleBuilderService(
+        props.services.outlookService,
+        pattern
+      );
     } catch (ex) {
       setType(MessageBarType.warning);
       setMessageContent(t('FileTitleFailed') + ': ' + ex);
@@ -48,7 +45,7 @@ const HomeTab: React.FC = () => {
     open();
 
     try {
-      const result = await mailPrinterService.getPdfDocumentContent(
+      const result = await props.services.mailprinterService.getPdfDocumentContent(
         fileTitle,
         isEntireConv
       );
@@ -60,10 +57,10 @@ const HomeTab: React.FC = () => {
       setLinkInfo({
         displayText: fileTitle,
         url: urlToOpen,
-        newWindow: ioService.isSafari()
+        newWindow: props.services.ioService.isSafari()
       });
 
-      ioService.openfile(fileTitle, result.blob); //does not work in Safari...
+      props.services.ioService.openfile(fileTitle, result.blob); //does not work in Safari...
     } catch (ex) {
       setType(MessageBarType.severeWarning);
       setMessageContent(t('CreatingFileFailed') + ': ' + ex);

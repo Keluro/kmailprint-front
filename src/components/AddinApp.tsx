@@ -6,8 +6,9 @@ import { LocaleContext } from '../providers/LocaleContext';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { ThemeProvider } from '@fluentui/react-theme-provider';
 import { MessageBarProvider } from '../providers/MessageBarContext';
+import { IServiceProps } from './IServiceProps';
 
-const AddinApp: React.FC = () => {
+const AddinApp: React.FC<IServiceProps> = (props: IServiceProps) => {
   const tabCss: React.CSSProperties = {
     padding: '5px 10px'
   };
@@ -20,12 +21,14 @@ const AddinApp: React.FC = () => {
         <Pivot>
           <PivotItem headerText={t('Home')}>
             <div style={tabCss}>
-              <HomeTab />
+              <HomeTab {...props} />
             </div>
           </PivotItem>
           <PivotItem headerText={t('PdfTitle')}>
             <div style={tabCss}>
-              <TitleBuilderTab></TitleBuilderTab>
+              <TitleBuilderTab
+                outlookService={props.services.outlookService}
+              ></TitleBuilderTab>
             </div>
           </PivotItem>
         </Pivot>

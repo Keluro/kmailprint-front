@@ -1,17 +1,16 @@
 import IMailPrinterService, { PrinterResult } from './IMailPrinterService';
 import { IOutlookService } from './IOulookService';
-import { MockOutlookService } from './mocks/MockOutlookService';
 import axios from 'axios';
 
 export class MailPrinterService implements IMailPrinterService {
+  constructor(private outlookService: IOutlookService) {}
+
   async getPdfDocumentContent(
     fileTitle: string,
     entireEmail: boolean
   ): Promise<PrinterResult> {
-    const outlookService: IOutlookService = new MockOutlookService();
-
-    const infoObject = await outlookService.getTokenInfo();
-    const userInfo = outlookService.getMyUserInfo();
+    const infoObject = await this.outlookService.getTokenInfo();
+    const userInfo = this.outlookService.getMyUserInfo();
 
     const data = {
       title: fileTitle,

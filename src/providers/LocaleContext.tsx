@@ -1,7 +1,6 @@
 import React from 'react';
 import { tLocale } from '../locales/i18n';
 import { IOutlookService } from '../services/IOulookService';
-import { MockOutlookService } from '../services/mocks/MockOutlookService';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => '',
@@ -17,8 +16,14 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const LocaleProvider = ({ children }: Props): JSX.Element => {
-  const outlookService: IOutlookService = new MockOutlookService();
+export type LocaleProviderPropTypes = Props & {
+  outlookService: IOutlookService;
+};
+
+export const LocaleProvider = ({
+  children,
+  outlookService
+}: LocaleProviderPropTypes): JSX.Element => {
   const [locale, setLocale] = React.useState(outlookService.getLocale());
 
   // NB: the fact that the locale can be set and is a state

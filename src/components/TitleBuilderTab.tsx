@@ -15,14 +15,16 @@ import {
   FileTitleBuilderService,
   FileTitleKind
 } from '../services/FileTitleBuilderService';
-import { MockOutlookService } from '../services/mocks/MockOutlookService';
 import TextAsync from './TextAsync';
 import {
   savePatternArray,
   getPatternArrayOrDefault
 } from '../services/LocalStorageService';
+import { IOutlookService } from '../services/IOulookService';
 
-const TitleBuilderTab: React.FC = () => {
+const TitleBuilderTab: React.FC<{ outlookService: IOutlookService }> = (
+  props
+) => {
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   const buttonStyles: Partial<IButtonStyles> = {
     root: { display: 'block', margin: '10px 0 20px' }
@@ -31,7 +33,6 @@ const TitleBuilderTab: React.FC = () => {
   type IOptionItemKey = IItemKey & { disabled: boolean };
 
   const allKeys = Object.keys(FileTitleTranslation);
-  const outlookService = new MockOutlookService();
 
   const updateOptionsComboBox = () => {
     const selectedPartKeys = selectedParts.map((i) => i.key);
@@ -127,7 +128,7 @@ const TitleBuilderTab: React.FC = () => {
       </div>
       <TextAsync
         stringPromise={FileTitleBuilderService(
-          outlookService,
+          props.outlookService,
           selectedParts.map((e) => e.key as FileTitleKind)
         )}
       />

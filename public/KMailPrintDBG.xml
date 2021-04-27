@@ -6,10 +6,10 @@
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp">
   <Id>02395e47-3b2e-2f0f-da47-4294164c993d</Id>
-  <Version>1.0.0.0</Version>
+  <Version>2.0.0.0</Version>
   <ProviderName>KeluroDBG</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="KMailPrintDBG" />
+  <DisplayName DefaultValue="KMailPrintDBG2" />
   <Description DefaultValue="KMailPrintDBG prints to pdf your emails and lets you define how the resulting file title should be formatted.">
     <Override Locale="fr-fr" Value="KMailPrintDBG vous permet d'imprimer en pdf vos emails et vous permet de définir comment le titre du fichier résultant doit être formatté."/>
   </Description>

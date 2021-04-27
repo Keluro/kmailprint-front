@@ -10,7 +10,7 @@ type OutlookEvent = {
   completed: () => void;
 };
 
-export const speedPrint = async (
+export const executePrintClick = async (
   event: OutlookEvent | null,
   service: Services
 ): Promise<void> => {

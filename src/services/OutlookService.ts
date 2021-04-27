@@ -4,7 +4,11 @@ import { UserInfo, TokenInfo } from './TokenInfo';
 
 export class OutlookService implements IOutlookService {
   getLocale(): string {
-    return Office.context.displayLanguage;
+    const locale = Office.context.displayLanguage;
+    if (locale.startsWith('fr-')) {
+      return 'fr';
+    }
+    return 'en';
   }
 
   private getHostInfo() {
@@ -33,7 +37,21 @@ export class OutlookService implements IOutlookService {
   }
 
   getTokenInfo(): Promise<TokenInfo> {
-    throw new Error('Method not implemented.');
+    return new Promise<TokenInfo>((resolve, reject) => {
+      Office.context.mailbox.getCallbackTokenAsync((asyncResult) => {
+        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+          const token = asyncResult.value;
+          const mailbox: any = Office.context.mailbox;
+          resolve({
+            token: token,
+            ewsUrl: mailbox.ewsUrl,
+            itemId: mailbox.item.itemId
+          });
+        } else {
+          reject('Failure retrieving token');
+        }
+      });
+    });
   }
 
   async getAuthorEmailAsync() {

@@ -34,7 +34,7 @@ export class MailPrinterService implements IMailPrinterService {
     const blob = new Blob([result.data], {
       type: 'application/octet-stream'
     });
-    const dwld_url = result.headers()['alternative-url'];
+    const dwld_url = result.headers['alternative-url'];
 
     return { blob: blob, DownloadUrl: dwld_url };
   }

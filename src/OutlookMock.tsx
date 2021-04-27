@@ -5,11 +5,9 @@ import AddinApp from './components/AddinApp';
 import LocaleProvider from './providers/LocaleContext';
 import ToggleLocale from './providers/ToggleLocale';
 import { IOService } from './services/IOService';
-import { MailPrinterService } from './services/MailPrinterService';
 import { MockMailPrinterService } from './services/mocks/MockMailPrinterService';
 import { MockOutlookService } from './services/mocks/MockOutlookService';
-import { OutlookService } from './services/OutlookService';
-import { speedPrint } from './services/PrintFunction';
+import { executePrintClick } from './services/PrintFunction';
 
 const panelStyle: CSSProperties = {
   position: 'absolute',
@@ -25,7 +23,7 @@ const ioService = new IOService();
 const mailprinterService = new MockMailPrinterService();
 
 const printFunction = () =>
-  speedPrint(null, { outlookService, ioService, mailprinterService });
+  executePrintClick(null, { outlookService, ioService, mailprinterService });
 
 ReactDOM.render(
   <React.StrictMode>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import AddinApp from './components/AddinApp';
 import LocaleProvider from './providers/LocaleContext';
 import ToggleLocale from './providers/ToggleLocale';
-import { executePrintClick } from './services/PrintFunction';
+import { speedPrint } from './services/PrintFunction';
 
 const panelStyle: CSSProperties = {
   position: 'absolute',
@@ -14,6 +14,7 @@ const panelStyle: CSSProperties = {
   border: '4px solid red'
 };
 
+const printFunction = () => speedPrint(null);
 ReactDOM.render(
   <React.StrictMode>
     <LocaleProvider>
@@ -23,7 +24,7 @@ ReactDOM.render(
           React free zone, outlook mock... Calling code should not depend on
           react...
         </p>
-        <button onClick={executePrintClick}>Fire command!</button>
+        <button onClick={printFunction}>Fire command!</button>
       </div>
       <div style={panelStyle}>
         <AddinApp />

@@ -16,12 +16,11 @@ export interface IOutlookService {
   showDownloadDialog(
     dowloadText: string,
     urlToOpen: string,
-    urlText: string
+    urlText: string,
+    trailingSentence: string
   ): void;
 
   getLocale(): string;
-
-  completeEvent(): void;
 
   getMyUserInfo(): UserInfo;
 

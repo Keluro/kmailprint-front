@@ -10,7 +10,11 @@ import { MockOutlookService } from './mocks/MockOutlookService';
 import { tLocale } from '../locales/i18n';
 import { IOService } from './IOService';
 
-export const executePrintClick = async (): Promise<void> => {
+type OutlookEvent = {
+  completed: () => void;
+};
+
+export const speedPrint = async (event: OutlookEvent | null): Promise<void> => {
   const mailPrinterService: IMailPrinterService = new MockMailPrinterService();
   const outlookService: IOutlookService = new MockOutlookService();
   const ioService = new IOService();
@@ -30,7 +34,7 @@ export const executePrintClick = async (): Promise<void> => {
     fileTitle = await FileTitleBuilderService(outlookService, pattern);
   } catch (ex) {
     outlookService.showNotification(t('FileTitleFailed') + ': ' + ex);
-    outlookService.completeEvent();
+    event?.completed();
     return;
   }
 
@@ -43,7 +47,7 @@ export const executePrintClick = async (): Promise<void> => {
   } catch (ex) {
     console.log(ex);
     outlookService.showNotification(t('CreatingFileFailed') + ': ' + ex);
-    outlookService.completeEvent();
+    event?.completed();
     return;
   }
 
@@ -54,7 +58,12 @@ export const executePrintClick = async (): Promise<void> => {
 
   outlookService.showNotification(t('SuccessfullyCreated'));
 
-  outlookService.showDownloadDialog(dowloadLinkText, urlToOpen, fileTitle);
+  outlookService.showDownloadDialog(
+    dowloadLinkText,
+    urlToOpen,
+    fileTitle,
+    t('SupportKMailPrintHosting2')
+  );
 
   ioService.openfile(fileTitle, result.blob); //does not work in Safari...
   //do not completeEvent it will:

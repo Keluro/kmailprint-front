@@ -7,5 +7,5 @@ export type TokenInfo = {
 export type UserInfo = {
   Name: string;
   Email: string;
-  HostingInfo: string;
+  HostInfo: string;
 };

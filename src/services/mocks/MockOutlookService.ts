@@ -52,7 +52,8 @@ export class MockOutlookService implements IOutlookService {
   async showDownloadDialog(
     downloadText: string,
     urlToOpen: string,
-    urlText: string
+    urlText: string,
+    trailingSentence: string
   ) {
     console.log(`Show Dialog: ${downloadText}, ${urlText}, ${urlToOpen}`);
     // Office.context.mailbox.item.notificationMessages.replaceAsync('status', {

@@ -1,63 +1,159 @@
-// eslint-disable-next-line no-empty
+import axios from 'axios';
+import { IOutlookService } from './IOulookService';
+import { UserInfo, TokenInfo } from './TokenInfo';
 
-// TODO:
-export default {};
-// import { IOutlookService } from './IOulookService';
+export class OutlookService implements IOutlookService {
+  getLocale(): string {
+    return Office.context.displayLanguage;
+  }
 
-// export class MockOutlookService implements IOutlookService {
-//   completeEvent(): void {}
+  private getHostInfo() {
+    //Use try catch, cuz this does not look to be a real api to look for the info
+    //in the localstorage
+    let hostInfo: string | null = '';
+    try {
+      hostInfo = window.sessionStorage.getItem('hostInfoValue');
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
+    if (hostInfo === null || typeof hostInfo === 'undefined') {
+      hostInfo = '';
+    }
+    return hostInfo;
+  }
 
-//   async getAuthorEmailAsync() {}
+  getMyUserInfo(): UserInfo {
+    const profile = Office.context.mailbox.userProfile;
+    //looks to be more of a hack than a real
+    const hostInfo = this.getHostInfo();
+    return {
+      Name: profile.displayName,
+      Email: profile.emailAddress,
+      HostInfo: hostInfo
+    };
+  }
 
-//   async getAuthorAsync() {}
+  getTokenInfo(): Promise<TokenInfo> {
+    throw new Error('Method not implemented.');
+  }
 
-//   async getNormalizedSubjectAsync() {}
+  async getAuthorEmailAsync() {
+    const item = (Office as any).cast.item.toMessageRead(
+      Office.context.mailbox.item
+    );
+    return Promise.resolve(item.from.emailAddress);
+  }
 
-//   async getSubjectAsync() {}
-//   async getDateTimeSentAsync() {
-//     await Office.context.mailbox.getCallbackTokenAsync(function (asyncResult) {
-//       if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-//           // Cache the result from the server.
-//           var token = asyncResult.value;
-//           var mailbox = Office.context.mailbox;
-//           that.$http({
-//               url: '/api/EmailsDateTimeSent?ewsUrl=' + encodeURIComponent(mailbox.ewsUrl) + '&token=' + encodeURIComponent(token) + '&itemId=' + encodeURIComponent(mailbox.item.itemId),
-//               method: 'GET'
-//           }).success(function (result) {
-//               deferred.resolve(result);
-//           }).error(function (e) {
-//               app.log(e);
-//               deferred.reject(app.UIStr.BodyRequestFailure);
-//           });
-//   }
+  async getAuthorAsync() {
+    const item = (Office as any).cast.item.toMessageRead(
+      Office.context.mailbox.item
+    );
+    return Promise.resolve(item.from.displayName);
+  }
 
-//   async showNotification(text: string) {
-//     Office.context.mailbox.item.notificationMessages.replaceAsync('status', {
-//       type: 'informationalMessage',
-//       icon: 'pdf-icon-32',
-//       message: text,
-//       persistent: false
-//     });
-//   }
+  async getNormalizedSubjectAsync() {
+    const item = (Office as any).cast.item.toMessageRead(
+      Office.context.mailbox.item
+    );
+    return item.normalizedSubject;
+  }
 
-//   async showDownloadDialog(
-//     downloadText: string,
-//     urlToOpen: string,
-//     urlText: string
-//   ) {
-//     var suffix = NotifierService.prototype.createQueryParams(
-//       urlToOpen,
-//       downloadText,
-//       hrefText
-//     );
-//     //cannot use something else than dialogAPI, window.open does not work in Safari
-//     NotifierService.prototype.showDialogInIframe(
-//       window.location.protocol +
-//         '//' +
-//         window.location.host +
-//         '/AppRead/downloadPage.html' +
-//         suffix
-//     );
-//     return;
-//   }
-// }
+  async getSubjectAsync() {
+    const item = (Office as any).cast.item.toMessageRead(
+      Office.context.mailbox.item
+    );
+    return item.subject;
+  }
+
+  async getDateTimeSentAsync() {
+    const asyncResult = await (Office as any).context.mailbox.getCallbackTokenAsync();
+    if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+      // Cache the result from the server.
+      const token = asyncResult.value;
+      const mailbox = Office.context.mailbox;
+      if (mailbox.item == undefined) {
+        return;
+      }
+      const url =
+        '/api/EmailsDateTimeSent?ewsUrl=' +
+        encodeURIComponent(mailbox.ewsUrl) +
+        '&token=' +
+        encodeURIComponent(token) +
+        '&itemId=' +
+        encodeURIComponent(mailbox.item.itemId);
+      let result;
+      try {
+        result = await axios.get(url);
+        return result.data;
+      } catch (ex) {
+        throw new Error('Cannot retrive DateTimeSent info');
+      }
+    }
+  }
+
+  async showNotification(text: string) {
+    (Office as any).context.mailbox.item.notificationMessages.replaceAsync(
+      'status',
+      {
+        type: 'informationalMessage',
+        icon: 'pdf-icon-32',
+        message: text,
+        persistent: false
+      }
+    );
+  }
+
+  private createQueryParams(
+    href: string,
+    downloadText: string,
+    hrefText: string,
+    trailingSentence: string
+  ) {
+    return (
+      '?href=' +
+      encodeURIComponent(href) +
+      '&hreftext=' +
+      encodeURIComponent(hrefText) +
+      '&text=' +
+      encodeURIComponent(downloadText) +
+      '&sentence1=' +
+      encodeURIComponent(trailingSentence)
+    );
+  }
+
+  async showDownloadDialog(
+    downloadText: string,
+    urlToOpen: string,
+    urlText: string,
+    trailingSentence: string
+  ) {
+    const suffix = this.createQueryParams(
+      urlToOpen,
+      downloadText,
+      urlText,
+      trailingSentence
+    );
+    //cannot use something else than dialogAPI, window.open does not work in Safari
+    const dialogUrl =
+      window.location.protocol +
+      '//' +
+      window.location.host +
+      '/AppRead/downloadPage.html' +
+      suffix;
+
+    const dialogOptions = {
+      width: 30,
+      height: 40,
+      requireHTTPS: true,
+      displayInIframe: true
+    };
+    Office.context.ui.displayDialogAsync(
+      dialogUrl,
+      dialogOptions,
+      (asyncResult: Office.AsyncResult<Office.Dialog>) => {
+        const dialog = asyncResult.value;
+        (window as any).dialog = dialog;
+      }
+    );
+    return;
+  }
+}

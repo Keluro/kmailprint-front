@@ -40,7 +40,6 @@ const HomeTab: React.FC = () => {
     } catch (ex) {
       setType(MessageBarType.warning);
       setMessageContent(t('FileTitleFailed') + ': ' + ex);
-      outlookService.completeEvent();
       return;
     }
 
@@ -68,7 +67,6 @@ const HomeTab: React.FC = () => {
     } catch (ex) {
       setType(MessageBarType.severeWarning);
       setMessageContent(t('CreatingFileFailed') + ': ' + ex);
-      outlookService.completeEvent();
     }
   };
 

@@ -1,12 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IOutlookService } from '../IOulookService';
+import { UserInfo, TokenInfo } from '../TokenInfo';
 
-// TODO:
 const timeout = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 export class MockOutlookService implements IOutlookService {
+  getMyUserInfo(): UserInfo {
+    throw new Error('Method not implemented.');
+  }
+  getTokenInfo(): Promise<TokenInfo> {
+    throw new Error('Method not implemented.');
+  }
+
+  getLocale(): string {
+    console.log('Complete event fired...');
+    return 'en';
+  }
   completeEvent(): void {
     console.log('Complete event fired...');
     return;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { tLocale } from '../locales/i18n';
+import { IOutlookService } from '../services/IOulookService';
+import { MockOutlookService } from '../services/mocks/MockOutlookService';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => '',
@@ -16,8 +18,11 @@ type Props = {
 };
 
 export const LocaleProvider = ({ children }: Props): JSX.Element => {
-  const [locale, setLocale] = React.useState('en');
+  const outlookService: IOutlookService = new MockOutlookService();
+  const [locale, setLocale] = React.useState(outlookService.getLocale());
 
+  // NB: the fact that the locale can be set and is a state
+  // is actually only used in OutlookMock with the Toggle button.
   const toggleLocale = () => {
     if (locale == 'en') {
       setLocale('fr');

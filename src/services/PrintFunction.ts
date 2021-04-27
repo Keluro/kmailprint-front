@@ -18,7 +18,7 @@ export const executePrintClick = async (): Promise<void> => {
   ioService.registerGoogleAnalyticsEvent('FunctionClick');
 
   const pattern = getPatternArrayOrDefault();
-  const locale = 'en'; //TODO:
+  const locale = outlookService.getLocale();
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   const isEntireConv: boolean = getIsEntireConversationOrDefault();
   const t = (path: string) => tLocale(locale, path);

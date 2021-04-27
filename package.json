@@ -19,7 +19,7 @@
     "react-promise": "^3.0.2"
   },
   "scripts": {
-    "start": "webpack serve --mode=development --open --hot",
+    "start": "webpack serve --mode=development --open --hot --https",
     "build": "webpack --mode=production",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx}' --write"
@@ -46,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^8.1.1",
     "css-loader": "^5.2.4",
     "eslint": "^7.24.0",
     "html-webpack-plugin": "^5.3.1",

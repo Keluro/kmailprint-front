@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -62,6 +63,9 @@ module.exports = {
     new HtmlWebPackPlugin({
       chunks: ['commands'],
       filename: 'commands.html'
+    }),
+    new CopyPlugin({
+      patterns: [{ from: 'src/assets', to: 'assets' }]
     })
   ]
 };

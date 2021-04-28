@@ -1,6 +1,5 @@
-import { rejects } from 'assert';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from 'axios';
-import { resolve } from 'path';
 import { IOutlookService } from './IOulookService';
 import { UserInfo, TokenInfo } from './TokenInfo';
 

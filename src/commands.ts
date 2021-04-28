@@ -1,7 +1,7 @@
 import { IOService } from './services/IOService';
 import { MailPrinterService } from './services/MailPrinterService';
 import { OutlookService } from './services/OutlookService';
-import { executePrintClick } from './services/PrintFunction';
+import { executePrintClick, OutlookEvent } from './services/PrintFunction';
 
 const outlookService = new OutlookService();
 const services = {
@@ -9,7 +9,7 @@ const services = {
   ioService: new IOService(),
   mailprinterService: new MailPrinterService(outlookService)
 };
-const speedPrint = (event: any) => executePrintClick(event, services);
+const speedPrint = (event: OutlookEvent) => executePrintClick(event, services);
 
 Office.initialize = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -6,7 +6,7 @@ import {
 import { tLocale } from '../locales/i18n';
 import { Services } from './Services';
 
-type OutlookEvent = {
+export type OutlookEvent = {
   completed: () => void;
 };
 

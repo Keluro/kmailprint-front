@@ -1,4 +1,6 @@
-import axios from 'axios';
+import { rejects } from 'assert';
+import axios, { AxiosResponse } from 'axios';
+import { resolve } from 'path';
 import { IOutlookService } from './IOulookService';
 import { UserInfo, TokenInfo } from './TokenInfo';
 
@@ -54,62 +56,71 @@ export class OutlookService implements IOutlookService {
     });
   }
 
-  async getAuthorEmailAsync() {
+  async getAuthorEmailAsync(): Promise<string> {
     const item = (Office as any).cast.item.toMessageRead(
       Office.context.mailbox.item
     );
     return Promise.resolve(item.from.emailAddress);
   }
 
-  async getAuthorAsync() {
+  async getAuthorAsync(): Promise<string> {
     const item = (Office as any).cast.item.toMessageRead(
       Office.context.mailbox.item
     );
     return Promise.resolve(item.from.displayName);
   }
 
-  async getNormalizedSubjectAsync() {
+  async getNormalizedSubjectAsync(): Promise<string> {
     const item = (Office as any).cast.item.toMessageRead(
       Office.context.mailbox.item
     );
     return item.normalizedSubject;
   }
 
-  async getSubjectAsync() {
+  async getSubjectAsync(): Promise<string> {
     const item = (Office as any).cast.item.toMessageRead(
       Office.context.mailbox.item
     );
     return item.subject;
   }
 
-  async getDateTimeSentAsync() {
-    const asyncResult = await (Office as any).context.mailbox.getCallbackTokenAsync();
-    if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-      // Cache the result from the server.
-      const token = asyncResult.value;
-      const mailbox = Office.context.mailbox;
-      if (mailbox.item == undefined) {
-        return;
-      }
-      const server_url = process.env.API_URL;
-      const url =
-        `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
-        encodeURIComponent(mailbox.ewsUrl) +
-        '&token=' +
-        encodeURIComponent(token) +
-        '&itemId=' +
-        encodeURIComponent(mailbox.item.itemId);
-      let result;
-      try {
-        result = await axios.get(url);
-        return result.data;
-      } catch (ex) {
-        throw new Error('Cannot retrive DateTimeSent info');
-      }
-    }
+  // TODO:
+  async getDateTimeSentAsync(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      (Office as any).context.mailbox.getCallbackTokenAsync(
+        (asyncResult: any) => {
+          if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+            const token = asyncResult.value;
+            const mailbox = Office.context.mailbox;
+            // if (mailbox.item == undefined) {
+            //   return '';
+            // }
+            const server_url = process.env.API_URL;
+            if (mailbox.item == undefined) {
+              reject('Cannot retrieve itemID for EWS call');
+              return;
+            }
+            const url =
+              `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
+              encodeURIComponent(mailbox.ewsUrl) +
+              '&token=' +
+              encodeURIComponent(token) +
+              '&itemId=' +
+              encodeURIComponent(mailbox.item?.itemId);
+            const resultPromise = axios.get(url);
+            resultPromise.then(
+              (value: AxiosResponse<string>) => {
+                resolve(value.data);
+              },
+              () => reject('Failure calling EWS server')
+            );
+          }
+        }
+      );
+    });
   }
 
-  async showNotification(text: string) {
+  async showNotification(text: string): Promise<void> {
     (Office as any).context.mailbox.item.notificationMessages.replaceAsync(
       'status',
       {
@@ -144,7 +155,7 @@ export class OutlookService implements IOutlookService {
     urlToOpen: string,
     urlText: string,
     trailingSentence: string
-  ) {
+  ): Promise<void> {
     const suffix = this.createQueryParams(
       urlToOpen,
       downloadText,
@@ -156,7 +167,7 @@ export class OutlookService implements IOutlookService {
       window.location.protocol +
       '//' +
       window.location.host +
-      '/AppRead/downloadPage.html' +
+      '/assets/download-dialog.html' +
       suffix;
 
     const dialogOptions = {

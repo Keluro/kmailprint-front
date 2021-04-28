@@ -1,4 +1,3 @@
-import { getStyleFromPropsAndOptions } from '@fluentui/react-theme-provider';
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import AddinApp from './components/AddinApp';

@@ -5,8 +5,7 @@ import DonationSection from './DonationSection';
 import { LocaleContext } from '../providers/LocaleContext';
 import { MessageBarContext } from '../providers/MessageBarContext';
 import { MessageBarType } from '@fluentui/react';
-import { MockMailPrinterService } from '../services/mocks/MockMailPrinterService';
-import IMailPrinterService from '../services/IMailPrinterService';
+
 import {
   getPatternArrayOrDefault,
   getIsEntireConversationOrDefault,

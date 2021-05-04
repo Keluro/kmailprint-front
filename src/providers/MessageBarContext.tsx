@@ -66,7 +66,11 @@ export const MessageBarProvider = ({ children }: Props): JSX.Element => {
     commonStyle
   );
 
-  const open = () => setVisibility(true);
+  const open = () => {
+    reset();
+    setVisibility(true);
+  };
+
   const reset = () => {
     setLinkInfo(undefined);
     setType(MessageBarType.info);

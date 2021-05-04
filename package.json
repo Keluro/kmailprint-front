@@ -19,7 +19,7 @@
     "react-ga": "^3.3.0"
   },
   "scripts": {
-    "start": "webpack serve --mode=development --open --hot",
+    "start": "webpack serve --mode=development --open --hot --https",
     "build": "webpack --mode=production",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx}' --write"

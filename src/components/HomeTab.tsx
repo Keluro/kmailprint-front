@@ -39,9 +39,8 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
       return;
     }
 
-    setType(MessageBarType.info);
-    setMessageContent(t('Processing'));
     open();
+    setMessageContent(t('Processing'));
 
     try {
       const result = await props.services.mailprinterService.getPdfDocumentContent(

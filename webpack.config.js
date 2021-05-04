@@ -7,6 +7,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
+    commons: ['babel-polyfill', 'react', 'react-dom'],
     addin: './src/Addin.tsx',
     commands: './src/commands.ts',
     outlookmock: './src/OutlookMock.tsx'
@@ -52,17 +53,17 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      chunks: ['addin'],
+      chunks: ['commons', 'addin'],
       template: 'public/template.html',
       filename: 'addin.html'
     }),
     new HtmlWebPackPlugin({
-      chunks: ['outlookmock'],
+      chunks: ['commons', 'outlookmock'],
       template: 'public/template.html',
       filename: 'index.html'
     }),
     new HtmlWebPackPlugin({
-      chunks: ['commands'],
+      chunks: ['commons', 'commands'],
       template: 'public/template.html',
       filename: 'commands.html'
     }),

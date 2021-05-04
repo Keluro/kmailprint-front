@@ -11,6 +11,7 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "axios": "^0.21.1",
+    "babel-polyfill": "^6.26.0",
     "bowser": "^2.11.0",
     "file-saver": "^2.0.5",
     "react": "^17.0.2",
@@ -18,7 +19,7 @@
     "react-ga": "^3.3.0"
   },
   "scripts": {
-    "start": "webpack serve --mode=development --open --hot --https",
+    "start": "webpack serve --mode=development --open --hot",
     "build": "webpack --mode=production",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx}' --write"
@@ -32,15 +33,18 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "ie 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ie 11"
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.1",
     "@types/file-saver": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",

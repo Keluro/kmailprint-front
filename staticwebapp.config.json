@@ -1,5 +1,19 @@
 {
-  "globalHeaders": {
-    "content-security-policy": "frame-src blob:"
-  }
+  "routes": [
+    {
+      "route": "/Images/*",
+      "redirect": "/assets/*",
+      "statusCode": 301
+    },
+    {
+      "route": "/AppRead/index.html",
+      "redirect": "/addin.html",
+      "statusCode": 301
+    },
+    {
+      "route": "/AppRead/commands.html",
+      "redirect": "/commands.html",
+      "statusCode": 301
+    }
+  ]
 }

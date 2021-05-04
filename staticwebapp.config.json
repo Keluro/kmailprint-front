@@ -1,8 +1,83 @@
 {
   "routes": [
     {
-      "route": "/Images/*",
-      "redirect": "/assets/*",
+      "route": "/Images/6464LogoOnly.png",
+      "redirect": "/assets/6464LogoOnly.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/128128LogoOnly.png",
+      "redirect": "/assets/128128LogoOnly.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/kmailprint-16.png",
+      "redirect": "/assets/kmailprint-16.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/kmailprint-32.png",
+      "redirect": "/assets/kmailprint-32.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/kmailprint-64.png",
+      "redirect": "/assets/kmailprint-64.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/kmailprint-80.png",
+      "redirect": "/assets/kmailprint-80.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/speedprint-16.png",
+      "redirect": "/assets/speedprint-16.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/speedprint-32.png",
+      "redirect": "/assets/speedprint-32.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/speedprint-64.png",
+      "redirect": "/assets/speedprint-64.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/speedprint-80.png",
+      "redirect": "/assets/speedprint-80.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/settings-16.png",
+      "redirect": "/assets/settings-16.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/settings-32.png",
+      "redirect": "/assets/settings-32.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/settings-64.png",
+      "redirect": "/assets/settings-64.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/settings-80.png",
+      "redirect": "/assets/settings-80.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/pdf-only-16.png",
+      "redirect": "/assets/pdf-only-16.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/Images/pdf-only-32.png",
+      "redirect": "/assets/pdf-only-32.png",
       "statusCode": 301
     },
     {

@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import AddinApp from './components/AddinApp';
 import LocaleProvider from './providers/LocaleContext';
-import ToggleLocale from './providers/ToggleLocale';
 import { IOService } from './services/IOService';
 import { MockMailPrinterService } from './services/mocks/MockMailPrinterService';
 import { MockOutlookService } from './services/mocks/MockOutlookService';
@@ -27,7 +26,6 @@ const printFunction = () =>
 ReactDOM.render(
   <React.StrictMode>
     <LocaleProvider outlookService={outlookService}>
-      <ToggleLocale></ToggleLocale>
       <div>
         <p>
           React free zone, outlook mock... Calling code should not depend on

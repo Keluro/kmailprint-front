@@ -1,0 +1,5 @@
+{
+  "globalHeaders": {
+    "content-security-policy": "frame-src *.keluro.com"
+  }
+}

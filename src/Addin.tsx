@@ -7,8 +7,6 @@ import { IOService } from './services/IOService';
 import { MailPrinterService } from './services/MailPrinterService';
 import { OutlookService } from './services/OutlookService';
 
-//TODO: update the package.json so we bundle for IE11 as well!
-
 Office.initialize = () => {
   const outlookService = new OutlookService();
   const ioService = new IOService();

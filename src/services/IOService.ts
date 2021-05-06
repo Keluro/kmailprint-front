@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { saveAs } from 'file-saver';
 import Bowser from 'bowser';
-import ReactGA from 'react-ga';
 
 declare const ga: (
   verb: string,
@@ -24,10 +23,6 @@ export class IOService {
   registerGoogleAnalyticsEvent(kind: string) {
     try {
       ga('send', 'event', 'KMailPrint', kind);
-      ReactGA.event({
-        category: 'KMailPrint',
-        action: kind
-      });
     } catch (ex) {
       console.log('Cannot register google analytics events...');
     }

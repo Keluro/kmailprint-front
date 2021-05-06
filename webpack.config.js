@@ -59,7 +59,7 @@ module.exports = {
     }),
     new HtmlWebPackPlugin({
       chunks: ['commons', 'outlookmock'],
-      template: 'public/template.html',
+      template: 'public/template-dev.html',
       filename: 'index.html'
     }),
     new HtmlWebPackPlugin({

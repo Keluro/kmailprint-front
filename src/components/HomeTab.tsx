@@ -58,7 +58,9 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
         newWindow: props.services.ioService.isSafari()
       });
 
-      props.services.ioService.openfile(fileTitle, result.blob); //does not work in Safari...
+      if (!props.services.ioService.isSafari()) {
+        props.services.ioService.openfile(fileTitle, result.blob); //does not work in Outlook for Mac/Safari
+      }
     } catch (ex) {
       setType(MessageBarType.severeWarning);
       setMessageContent(t('CreatingFileFailed') + ': ' + ex);

@@ -24,6 +24,9 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
   );
 
   const _onClick = async () => {
+    open();
+    setMessageContent(t('Processing'));
+
     props.services.ioService.registerGoogleAnalyticsEvent('ButtonClick');
 
     const pattern = getPatternArrayOrDefault();
@@ -38,9 +41,6 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
       setMessageContent(t('FileTitleFailed') + ': ' + ex);
       return;
     }
-
-    open();
-    setMessageContent(t('Processing'));
 
     try {
       const result = await props.services.mailprinterService.getPdfDocumentContent(

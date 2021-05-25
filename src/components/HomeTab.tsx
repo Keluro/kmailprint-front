@@ -1,26 +1,23 @@
 import React from 'react';
 import { PrimaryButton } from '@fluentui/react/lib/Button';
-import { Toggle } from '@fluentui/react/lib/Toggle';
+
 import DonationSection from './DonationSection';
-import { LocaleContext } from '../providers/LocaleContext';
 import { MessageBarContext } from '../providers/MessageBarContext';
 import { MessageBarType } from '@fluentui/react';
 
 import {
   getPatternArrayOrDefault,
-  getIsEntireConversationOrDefault,
-  saveIsEntireConversation
+  getIsEntireConversationOrDefault
 } from '../services/LocalStorageService';
 import { FileTitleBuilderService } from '../services/FileTitleBuilderService';
 import { IServiceProps } from './IServiceProps';
+import { LocaleContext } from '../providers/LocaleContext';
 
 const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
+  const { t } = React.useContext(LocaleContext);
+
   const { setType, open, setMessageContent, setLinkInfo } = React.useContext(
     MessageBarContext
-  );
-
-  const [isEntireConv, setIsEntireConv] = React.useState<boolean>(
-    getIsEntireConversationOrDefault()
   );
 
   const _onClick = async () => {
@@ -42,6 +39,7 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
       return;
     }
 
+    const isEntireConv = getIsEntireConversationOrDefault();
     try {
       const result = await props.services.mailprinterService.getPdfDocumentContent(
         fileTitle,
@@ -67,27 +65,8 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     }
   };
 
-  function _onChangeIsEntireConversation(
-    ev: React.MouseEvent<HTMLElement>,
-    checked?: boolean
-  ) {
-    if (checked !== undefined) {
-      setIsEntireConv(checked);
-      saveIsEntireConversation(checked);
-    }
-  }
-
-  const { t } = React.useContext(LocaleContext);
-
   return (
     <>
-      <Toggle
-        label={t('EntireEmailStr')}
-        defaultChecked={isEntireConv}
-        onChange={_onChangeIsEntireConversation}
-        onText={t('Yes')}
-        offText={t('No')}
-      />
       <PrimaryButton onClick={_onClick} style={{ marginTop: '10px' }}>
         {t('PrintPDF')}
       </PrimaryButton>

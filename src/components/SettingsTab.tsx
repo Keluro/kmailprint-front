@@ -7,14 +7,14 @@ import {
 } from '@fluentui/react/lib/OverflowSet';
 import { IServiceProps } from './IServiceProps';
 import { LocaleContext } from '../providers/LocaleContext';
-import ExtractionSettings from './ExtractionSettings';
+import EmailDataSettings from './EmailDataSettings';
 import DatetimeSettings from './DatetimeSettings';
 import LangSettings from './LangSettings';
 import TitleBuilderSettings from './TitleBuilderSettings';
 import PaperSettings from './PaperSettings';
 
 enum Visibility {
-  Extraction = 'extraction',
+  EmailData = 'emaildata',
   Lang = 'lang',
   DateFormat = 'dateformat',
   FileTitle = 'filetitle',
@@ -70,7 +70,7 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
 
   const getAllVisibilityTurnedOff = () => {
     return {
-      [Visibility.Extraction]: false,
+      [Visibility.EmailData]: false,
       [Visibility.Lang]: false,
       [Visibility.DateFormat]: false,
       [Visibility.FileTitle]: false,
@@ -99,9 +99,9 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
 
   const items: ItemMenu[] = [
     {
-      text: t('Extraction'),
-      key: Visibility.Extraction,
-      onClick: onItemClicked(Visibility.Extraction)
+      text: t('Emaildata'),
+      key: Visibility.EmailData,
+      onClick: onItemClicked(Visibility.EmailData)
     },
     {
       text: t('DateFormat'),
@@ -139,7 +139,7 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
         onRenderOverflowButton={onRenderOverflowButton}
         onRenderItem={onRenderItem}
       />
-      {visiblity[Visibility.Extraction] && <ExtractionSettings />}
+      {visiblity[Visibility.EmailData] && <EmailDataSettings />}
       {visiblity[Visibility.DateFormat] && <DatetimeSettings />}
       {visiblity[Visibility.Lang] && <LangSettings />}
       {visiblity[Visibility.Paper] && <PaperSettings />}

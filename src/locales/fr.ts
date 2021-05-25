@@ -14,7 +14,7 @@ export default {
   Add: 'Ajouter',
   FileTitle: 'Titre du fichier',
   Settings: 'Paramètres',
-  Extraction: 'Extraction',
+  Emaildata: 'Email data',
   DateFormat: 'Format date',
   Lang: 'Langue',
   MoreSettings: 'Plus de paramètres',

@@ -13,7 +13,7 @@ export default {
   Add: 'Add',
   FileTitle: 'File title',
   Settings: 'Settings',
-  Extraction: 'Extraction',
+  Emaildata: 'Email data',
   DateFormat: 'Date format',
   Lang: 'Language',
   Paper: 'Paper',

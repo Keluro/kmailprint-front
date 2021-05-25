@@ -1,12 +1,13 @@
 import React from 'react';
 import { Pivot, PivotItem } from '@fluentui/react';
 import HomeTab from './HomeTab';
-import TitleBuilderTab from './TitleBuilderTab';
+import TitleBuilderTab from './TitleBuilderSettings';
 import { LocaleContext } from '../providers/LocaleContext';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { ThemeProvider } from '@fluentui/react-theme-provider';
 import { MessageBarProvider } from '../providers/MessageBarContext';
 import { IServiceProps } from './IServiceProps';
+import SettingsTab from './SettingsTab';
 
 const AddinApp: React.FC<IServiceProps> = (props: IServiceProps) => {
   const tabCss: React.CSSProperties = {
@@ -24,11 +25,9 @@ const AddinApp: React.FC<IServiceProps> = (props: IServiceProps) => {
               <HomeTab {...props} />
             </div>
           </PivotItem>
-          <PivotItem headerText={t('PdfTitle')}>
+          <PivotItem headerText={t('Settings')}>
             <div style={tabCss}>
-              <TitleBuilderTab
-                outlookService={props.services.outlookService}
-              ></TitleBuilderTab>
+              <SettingsTab {...props}></SettingsTab>
             </div>
           </PivotItem>
         </Pivot>

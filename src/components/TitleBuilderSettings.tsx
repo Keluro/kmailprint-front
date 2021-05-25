@@ -22,7 +22,7 @@ import {
 } from '../services/LocalStorageService';
 import { IOutlookService } from '../services/IOulookService';
 
-const TitleBuilderTab: React.FC<{ outlookService: IOutlookService }> = (
+const TitleBuilderSettings: React.FC<{ outlookService: IOutlookService }> = (
   props
 ) => {
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
@@ -123,7 +123,7 @@ const TitleBuilderTab: React.FC<{ outlookService: IOutlookService }> = (
       />
       <div style={{ marginTop: 20, marginBottom: 10 }}>
         <Separator>
-          <Text style={{ fontWeight: 'bold' }}>{t('FileTile')}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{t('FileTitle')}</Text>
         </Separator>
       </div>
       <TextAsync
@@ -136,4 +136,4 @@ const TitleBuilderTab: React.FC<{ outlookService: IOutlookService }> = (
   );
 };
 
-export default TitleBuilderTab;
+export default TitleBuilderSettings;

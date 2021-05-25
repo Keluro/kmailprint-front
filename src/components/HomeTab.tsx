@@ -5,10 +5,7 @@ import DonationSection from './DonationSection';
 import { MessageBarContext } from '../providers/MessageBarContext';
 import { MessageBarType } from '@fluentui/react';
 
-import {
-  getPatternArrayOrDefault,
-  getIsEntireConversationOrDefault
-} from '../services/LocalStorageService';
+import { SettingsResolverService } from '../services/SettingsResolverService';
 import { FileTitleBuilderService } from '../services/FileTitleBuilderService';
 import { IServiceProps } from './IServiceProps';
 import { LocaleContext } from '../providers/LocaleContext';
@@ -26,12 +23,14 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
 
     props.services.ioService.registerGoogleAnalyticsEvent('ButtonClick');
 
-    const pattern = getPatternArrayOrDefault();
+    const settings = new SettingsResolverService(
+      props.services.outlookService
+    ).getSettings();
     let fileTitle;
     try {
       fileTitle = await FileTitleBuilderService(
         props.services.outlookService,
-        pattern
+        settings.fileTitlePattern
       );
     } catch (ex) {
       setType(MessageBarType.warning);
@@ -39,7 +38,7 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
       return;
     }
 
-    const isEntireConv = getIsEntireConversationOrDefault();
+    const isEntireConv = settings.entireConversation;
     try {
       const result = await props.services.mailprinterService.getPdfDocumentContent(
         fileTitle,

@@ -1,10 +1,9 @@
-import { FileTitleKind } from './FileTitleBuilderService';
-
 const FILETITLE_PATTERN = 'filetitle_pattern';
 const SAVE_ENTIRE_CONV = 'is_entire_conv';
+const FORCE_LANG = 'language';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const savePatternArray = (array: string[]) => {
+export const savePatternArrayStorage = (array: string[]) => {
   try {
     window.localStorage.setItem(FILETITLE_PATTERN, array.join('¤'));
   } catch (ex) {
@@ -12,7 +11,7 @@ export const savePatternArray = (array: string[]) => {
   }
 };
 
-export const saveIsEntireConversation = (isEntireConv: boolean) => {
+export const saveIsEntireConversationStorage = (isEntireConv: boolean) => {
   try {
     window.localStorage.setItem(SAVE_ENTIRE_CONV, isEntireConv.toString());
   } catch (ex) {
@@ -20,20 +19,40 @@ export const saveIsEntireConversation = (isEntireConv: boolean) => {
   }
 };
 
-export const getIsEntireConversationOrDefault = () => {
+export const saveLanguageStorage = (langKey: string) => {
+  try {
+    window.localStorage.setItem(FORCE_LANG, langKey);
+  } catch (ex) {
+    console.log('Cannot access localStorage for saving');
+  }
+};
+
+export const getLanguageFromStorage = () => {
+  try {
+    const str = window.localStorage.getItem(FORCE_LANG);
+    if (typeof str === 'string' && str !== '') {
+      return str;
+    }
+    return undefined;
+  } catch (ex) {
+    console.log('Cannot access localStorage for getting');
+  }
+};
+
+export const getIsEntireConversationFromStorage = () => {
   try {
     const str = window.localStorage.getItem(SAVE_ENTIRE_CONV);
     if (typeof str === 'string' && str !== '') {
       return str == 'true';
     }
-    return false;
+    return undefined;
   } catch (ex) {
     console.log('Cannot access localStorage for getting');
-    return false;
+    return undefined;
   }
 };
 
-const getPatternArray = () => {
+export const getPatternArrayFromStorage = () => {
   try {
     const str = window.localStorage.getItem(FILETITLE_PATTERN);
     if (typeof str === 'string' && str !== '') {
@@ -43,15 +62,4 @@ const getPatternArray = () => {
   } catch (ex) {
     console.log('Cannot access localStorage for getting');
   }
-};
-
-export const getPatternArrayOrDefault = () => {
-  let savedPatternKeys = getPatternArray();
-  if (!savedPatternKeys) {
-    savedPatternKeys = [
-      FileTitleKind.Subject,
-      FileTitleKind.SenderEmailAddress
-    ];
-  }
-  return savedPatternKeys as FileTitleKind[];
 };

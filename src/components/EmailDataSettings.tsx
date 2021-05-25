@@ -1,15 +1,16 @@
 import React from 'react';
 import { Toggle } from '@fluentui/react/lib/Toggle';
 
-import {
-  getIsEntireConversationOrDefault,
-  saveIsEntireConversation
-} from '../services/LocalStorageService';
+import { SettingsResolverService } from '../services/SettingsResolverService';
 import { LocaleContext } from '../providers/LocaleContext';
+import { IServiceProps } from './IServiceProps';
 
-const EmailDataSettings: React.FC = () => {
+const EmailDataSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
+  const settingsResolver = new SettingsResolverService(
+    props.services.outlookService
+  );
   const [isEntireConv, setIsEntireConv] = React.useState<boolean>(
-    getIsEntireConversationOrDefault()
+    settingsResolver.getSettings().entireConversation
   );
 
   const _onChangeIsEntireConversation = (
@@ -18,7 +19,7 @@ const EmailDataSettings: React.FC = () => {
   ) => {
     if (checked !== undefined) {
       setIsEntireConv(checked);
-      saveIsEntireConversation(checked);
+      settingsResolver.saveIsEntireConversation(checked);
     }
   };
 

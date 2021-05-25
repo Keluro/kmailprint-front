@@ -1,8 +1,5 @@
 import { FileTitleBuilderService } from './FileTitleBuilderService';
-import {
-  getPatternArrayOrDefault,
-  getIsEntireConversationOrDefault
-} from './LocalStorageService';
+import { SettingsResolverService } from '../services/SettingsResolverService';
 import { tLocale } from '../locales/i18n';
 import { Services } from './Services';
 
@@ -16,10 +13,14 @@ export const executePrintClick = async (
 ): Promise<void> => {
   service.ioService.registerGoogleAnalyticsEvent('FunctionClick');
 
-  const pattern = getPatternArrayOrDefault();
+  const settings = new SettingsResolverService(
+    service.outlookService
+  ).getSettings();
+
+  const pattern = settings.fileTitlePattern;
   const locale = service.outlookService.getLocale();
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  const isEntireConv: boolean = getIsEntireConversationOrDefault();
+  const isEntireConv: boolean = settings.entireConversation;
   const t = (path: string) => tLocale(locale, path);
 
   service.outlookService.showNotification(t('Processing'));

@@ -16,19 +16,19 @@ import {
   FileTitleKind
 } from '../services/FileTitleBuilderService';
 import TextAsync from './TextAsync';
-import {
-  savePatternArray,
-  getPatternArrayOrDefault
-} from '../services/LocalStorageService';
-import { IOutlookService } from '../services/IOulookService';
+import { SettingsResolverService } from '../services/SettingsResolverService';
+import { IServiceProps } from './IServiceProps';
 
-const TitleBuilderSettings: React.FC<{ outlookService: IOutlookService }> = (
-  props
+const TitleBuilderSettings: React.FC<IServiceProps> = (
+  props: IServiceProps
 ) => {
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   const buttonStyles: Partial<IButtonStyles> = {
     root: { display: 'block', margin: '10px 0 20px' }
   };
+  const settingsResolver = new SettingsResolverService(
+    props.services.outlookService
+  );
 
   type IOptionItemKey = IItemKey & { disabled: boolean };
 
@@ -47,12 +47,14 @@ const TitleBuilderSettings: React.FC<{ outlookService: IOutlookService }> = (
   };
 
   const setAndSaveSelectedParts = (partsToSave: IItemKey[]) => {
-    savePatternArray(partsToSave.map((s) => s.key as string));
+    settingsResolver.savePatternArray(
+      partsToSave.map((s) => s.key as FileTitleKind)
+    );
     setSelectedParts(partsToSave);
   };
 
   const getDefaultSavedPattern = () => {
-    const savedPatternKeys = getPatternArrayOrDefault();
+    const savedPatternKeys = settingsResolver.getSettings().fileTitlePattern;
     return savedPatternKeys.map((key) => {
       const translationKey = FileTitleTranslation[key] as string;
       return { key: key, text: t(translationKey) } as IItemKey;
@@ -128,7 +130,7 @@ const TitleBuilderSettings: React.FC<{ outlookService: IOutlookService }> = (
       </div>
       <TextAsync
         stringPromise={FileTitleBuilderService(
-          props.outlookService,
+          props.services.outlookService,
           selectedParts.map((e) => e.key as FileTitleKind)
         )}
       />

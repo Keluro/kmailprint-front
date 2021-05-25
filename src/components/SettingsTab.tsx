@@ -139,13 +139,11 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
         onRenderOverflowButton={onRenderOverflowButton}
         onRenderItem={onRenderItem}
       />
-      {visiblity[Visibility.EmailData] && <EmailDataSettings />}
-      {visiblity[Visibility.DateFormat] && <DatetimeSettings />}
-      {visiblity[Visibility.Lang] && <LangSettings />}
-      {visiblity[Visibility.Paper] && <PaperSettings />}
-      {visiblity[Visibility.FileTitle] && (
-        <TitleBuilderSettings outlookService={props.services.outlookService} />
-      )}
+      {visiblity[Visibility.EmailData] && <EmailDataSettings {...props} />}
+      {visiblity[Visibility.DateFormat] && <DatetimeSettings {...props} />}
+      {visiblity[Visibility.Lang] && <LangSettings {...props} />}
+      {visiblity[Visibility.Paper] && <PaperSettings {...props} />}
+      {visiblity[Visibility.FileTitle] && <TitleBuilderSettings {...props} />}
     </>
   );
 };

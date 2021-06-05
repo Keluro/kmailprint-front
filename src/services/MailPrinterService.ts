@@ -4,24 +4,29 @@ import axios from 'axios';
 import { TokenInfo } from './TokenInfo';
 import { DateFormat } from './DateFormats';
 import { Lang } from './Language';
+import { SettingsResolverService } from './SettingsResolverService';
 
 export class MailPrinterService implements IMailPrinterService {
   constructor(private outlookService: IOutlookService) {}
 
-  async getPdfDocumentContent(
-    fileTitle: string,
-    entireEmail: boolean
-  ): Promise<PrinterResult> {
-    const infoObject = await this.outlookService.getTokenInfo();
+  async getPdfDocumentContent(fileTitle: string): Promise<PrinterResult> {
+    const tokenInfo = await this.outlookService.getTokenInfo();
     const userInfo = this.outlookService.getMyUserInfo();
+    const settings = new SettingsResolverService(
+      this.outlookService
+    ).getSettings();
 
+    const entireConversation = settings.entireConversation;
+    const dateFormat = settings.dateFormat;
+    const paperFormat = settings.paper;
     const data = {
-      title: fileTitle,
-      ewsUrl: infoObject.ewsUrl,
-      token: infoObject.token,
-      itemId: infoObject.itemId,
-      completeBody: entireEmail,
-      UserInfo: userInfo
+      fileTitle,
+      tokenInfo,
+      entireConversation,
+      userInfo,
+      dateFormat,
+      paperFormat,
+      lang: settings.language
     };
 
     let result;
@@ -56,8 +61,9 @@ export class MailPrinterService implements IMailPrinterService {
       '&itemId=' +
       encodeURIComponent(tokenInfo.itemId) +
       '&lang=' +
-      encodeURIComponent(lang);
-    '&dateformat=' + encodeURIComponent(dateFormat);
+      encodeURIComponent(lang) +
+      '&dateFormat=' +
+      encodeURIComponent(dateFormat);
     const resultPromise = await axios.get(url);
     return resultPromise.data as string;
   }

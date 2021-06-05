@@ -1,3 +1,4 @@
+import { DateFormat } from './DateFormats';
 import { FileTitleKind } from './FileTitleBuilderService';
 import { IOutlookService } from './IOulookService';
 import {
@@ -9,7 +10,9 @@ import {
   saveLanguageStorage,
   deleteLanguageStorage,
   getPrintPaperFromStorage,
-  savePrintPaperFromStorage
+  savePrintPaperFromStorage,
+  saveDateFormatFromStorage,
+  getDateFormatFromStorage
 } from './LocalStorageService';
 import { PrintPaper } from './PrintPaper';
 
@@ -18,6 +21,7 @@ type Settings = {
   entireConversation: boolean;
   fileTitlePattern: FileTitleKind[];
   paper: PrintPaper;
+  dateFormat: DateFormat;
 };
 
 export class SettingsResolverService {
@@ -28,7 +32,8 @@ export class SettingsResolverService {
       language: this.getLanguageOrDefault(),
       entireConversation: this.getIsEntireConversationOrDefault(),
       fileTitlePattern: this.getPatternArrayOrDefault(),
-      paper: this.getPrintPaperOrDefault()
+      paper: this.getPrintPaperOrDefault(),
+      dateFormat: this.getDateFormatOrDefault()
     };
   };
 
@@ -50,6 +55,10 @@ export class SettingsResolverService {
 
   public savePrintPaper(paper: PrintPaper): void {
     savePrintPaperFromStorage(paper as string);
+  }
+
+  public saveDateFormat(dateformat: DateFormat): void {
+    saveDateFormatFromStorage(dateformat as string);
   }
 
   private getLanguageOrDefault = (): string => {
@@ -87,6 +96,15 @@ export class SettingsResolverService {
       return PrintPaper.A4;
     } else {
       return savedValue as PrintPaper;
+    }
+  };
+
+  private getDateFormatOrDefault = (): DateFormat => {
+    const savedValue = getDateFormatFromStorage();
+    if (savedValue === undefined) {
+      return DateFormat.r;
+    } else {
+      return savedValue as DateFormat;
     }
   };
 }

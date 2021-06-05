@@ -46,5 +46,6 @@ export default {
   Yes: 'Yes',
   No: 'No',
   Close: 'Close',
-  UseOutlookDefault: 'Use Outlook language'
+  UseOutlookDefault: 'Use Outlook language',
+  SelectDateTimeFormat: 'Select the datetime format'
 } as { [key: string]: string };

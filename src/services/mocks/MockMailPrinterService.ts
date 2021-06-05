@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios';
 import IMailPrinterService, { PrinterResult } from '../IMailPrinterService';
+import { Lang } from '../Language';
+import { DateFormat, getFormat } from '../DateFormats';
+import { TokenInfo } from '../TokenInfo';
 
 const timeout = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -24,5 +27,14 @@ export class MockMailPrinterService implements IMailPrinterService {
         'https://www.benoitpatra.com/assets/download/teaching/LM125-ExerciceSynthese.pdf'
     };
     return Promise.resolve(result);
+  }
+
+  async getFormatedDateTimeSent(
+    tokenInfo: TokenInfo,
+    lang: Lang,
+    dateFormat: DateFormat
+  ) {
+    await timeout(500);
+    return getFormat(lang, dateFormat);
   }
 }

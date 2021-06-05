@@ -131,6 +131,7 @@ const TitleBuilderSettings: React.FC<IServiceProps> = (
       <TextAsync
         stringPromise={FileTitleBuilderService(
           props.services.outlookService,
+          props.services.mailprinterService,
           selectedParts.map((e) => e.key as FileTitleKind)
         )}
       />

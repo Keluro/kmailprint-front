@@ -16,6 +16,8 @@
 // Printing format u : 1998-07-12 19:17:45Z
 // Printing format U : dimanche 12 juillet 1998 17:17:45
 
+import { Lang } from './Language';
+
 export enum DateFormat {
   d = 'd',
   D = 'D',
@@ -30,11 +32,12 @@ export enum DateFormat {
 export const getAllFormats = (): DateFormat[] =>
   Object.keys(DateFormat).map((s) => s as DateFormat);
 
-export const getFormat = (lang: string, format: DateFormat): string => {
-  if (lang === 'fr') {
-    return formattedFr(format);
-  } else {
-    return formattedUS(format);
+export const getFormat = (lang: Lang, format: DateFormat): string => {
+  switch (lang) {
+    case Lang.EN:
+      return formattedUS(format);
+    case Lang.FR:
+      return formattedFr(format);
   }
 };
 
@@ -56,8 +59,6 @@ const formattedFr = (format: DateFormat) => {
       return '1998-07-12 19:17:45Z';
     case DateFormat.U:
       return 'dimanche 12 juillet 1998 17:17:45';
-    default:
-      return '';
   }
 };
 
@@ -87,7 +88,5 @@ const formattedUS = (format: DateFormat) => {
       return '1998-07-12 19:17:45Z';
     case DateFormat.U:
       return 'Sunday, July 12, 1998 5:17:45 PM';
-    default:
-      return '';
   }
 };

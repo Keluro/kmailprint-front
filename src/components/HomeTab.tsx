@@ -30,6 +30,7 @@ const HomeTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     try {
       fileTitle = await FileTitleBuilderService(
         props.services.outlookService,
+        props.services.mailprinterService,
         settings.fileTitlePattern
       );
     } catch (ex) {

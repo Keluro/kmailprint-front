@@ -27,7 +27,11 @@ export const executePrintClick = async (
 
   let fileTitle;
   try {
-    fileTitle = await FileTitleBuilderService(service.outlookService, pattern);
+    fileTitle = await FileTitleBuilderService(
+      service.outlookService,
+      service.mailprinterService,
+      pattern
+    );
   } catch (ex) {
     service.outlookService.showNotification(t('FileTitleFailed') + ': ' + ex);
     event?.completed();

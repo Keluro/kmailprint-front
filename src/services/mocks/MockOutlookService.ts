@@ -11,8 +11,14 @@ export class MockOutlookService implements IOutlookService {
   getMyUserInfo(): UserInfo {
     throw new Error('Method not implemented.');
   }
-  getTokenInfo(): Promise<TokenInfo> {
-    throw new Error('Method not implemented.');
+  async getTokenInfo() {
+    await timeout(50);
+    const token: TokenInfo = {
+      ewsUrl: 'https://toto.ews.fr',
+      token: 'toto',
+      itemId: 'myid'
+    };
+    return Promise.resolve(token);
   }
 
   getLocale(): Lang {

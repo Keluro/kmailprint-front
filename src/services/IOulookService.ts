@@ -10,8 +10,6 @@ export interface IOutlookService {
 
   getSubjectAsync: () => Promise<string>;
 
-  getDateTimeSentAsync: () => Promise<string>;
-
   showNotification(text: string): void;
 
   showDownloadDialog(

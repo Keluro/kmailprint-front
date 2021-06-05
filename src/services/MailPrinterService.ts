@@ -1,6 +1,9 @@
 import IMailPrinterService, { PrinterResult } from './IMailPrinterService';
 import { IOutlookService } from './IOulookService';
 import axios from 'axios';
+import { TokenInfo } from './TokenInfo';
+import { DateFormat } from './DateFormats';
+import { Lang } from './Language';
 
 export class MailPrinterService implements IMailPrinterService {
   constructor(private outlookService: IOutlookService) {}
@@ -37,5 +40,25 @@ export class MailPrinterService implements IMailPrinterService {
     const dwld_url = result.headers['alternative-url'];
 
     return { blob: blob, DownloadUrl: dwld_url };
+  }
+
+  async getFormatedDateTimeSent(
+    tokenInfo: TokenInfo,
+    lang: Lang,
+    dateFormat: DateFormat
+  ): Promise<string> {
+    const server_url = process.env.API_URL;
+    const url =
+      `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
+      encodeURIComponent(tokenInfo.ewsUrl) +
+      '&token=' +
+      encodeURIComponent(tokenInfo.token) +
+      '&itemId=' +
+      encodeURIComponent(tokenInfo.itemId) +
+      '&lang=' +
+      encodeURIComponent(lang);
+    '&format=' + encodeURIComponent(dateFormat);
+    const resultPromise = await axios.get(url);
+    return resultPromise.data as string;
   }
 }

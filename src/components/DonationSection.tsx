@@ -1,3 +1,4 @@
+import { FontSizes } from '@fluentui/react';
 import React from 'react';
 import { LocaleContext } from '../providers/LocaleContext';
 
@@ -6,12 +7,6 @@ const DonationSection: React.FC = () => {
 
   return (
     <>
-      <p>
-        <span>{t('Suggestions')} &nbsp;</span>
-        <a href="mailto:benoit.patra@gmail.com" target="_blank">
-          benoit.patra@gmail.com
-        </a>
-      </p>
       <p>
         <span>{t('SupportKMailPrintHosting')} &nbsp;</span>
         <span>
@@ -43,6 +38,15 @@ const DonationSection: React.FC = () => {
           height="1"
         ></img>
       </form>
+      <p style={{ fontSize: FontSizes.size12 }}>
+        <span>{t('Suggestions')} &nbsp;</span>
+        <a href="mailto:benoit.patra@gmail.com" target="_blank">
+          benoit.patra@gmail.com
+        </a>
+      </p>
+      <p style={{ fontSize: FontSizes.size12 }}>
+        <span>{t('PrivacyKmailPrint')} &nbsp;</span>
+      </p>
     </>
   );
 };

@@ -47,5 +47,7 @@ export default {
   No: 'No',
   Close: 'Close',
   UseOutlookDefault: 'Use Outlook language',
-  SelectDateTimeFormat: 'Select the datetime format'
+  SelectDateTimeFormat: 'Select the datetime format',
+  PrivacyKmailPrint:
+    'Privacy matters, no content or personal data is kept on KMailPrint servers'
 } as { [key: string]: string };

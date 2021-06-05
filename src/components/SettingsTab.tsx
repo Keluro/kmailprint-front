@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { IconButton, IButtonStyles } from '@fluentui/react/lib/Button';
 import { Link } from '@fluentui/react/lib/Link';
 import {
@@ -12,6 +12,7 @@ import DatetimeSettings from './DatetimeSettings';
 import LangSettings from './LangSettings';
 import TitleBuilderSettings from './TitleBuilderSettings';
 import PaperSettings from './PaperSettings';
+import { FontWeights } from '@fluentui/react';
 
 enum Visibility {
   EmailData = 'emaildata',
@@ -29,6 +30,7 @@ type ItemMenu = {
   key: string;
   text: string;
   onClick: () => void;
+  style: CSSProperties;
 };
 
 const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
@@ -38,7 +40,14 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     return (
       <Link
         role="menuitem"
-        styles={{ root: { marginRight: 10 } }}
+        styles={{
+          root: {
+            marginRight: 10,
+            fontWeight: visiblity[item.key as Visibility]
+              ? FontWeights.bold
+              : FontWeights.regular
+          }
+        }}
         onClick={item.onClick}
       >
         {item.text}
@@ -101,17 +110,20 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     {
       text: t('Emaildata'),
       key: Visibility.EmailData,
-      onClick: onItemClicked(Visibility.EmailData)
+      onClick: onItemClicked(Visibility.EmailData),
+      style: {}
     },
     {
       text: t('DateFormat'),
       key: Visibility.DateFormat,
-      onClick: onItemClicked(Visibility.DateFormat)
+      onClick: onItemClicked(Visibility.DateFormat),
+      style: {}
     },
     {
       text: t('Lang'),
       key: Visibility.Lang,
-      onClick: onItemClicked(Visibility.Lang)
+      onClick: onItemClicked(Visibility.Lang),
+      style: {}
     }
   ];
 
@@ -119,12 +131,18 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     {
       text: t('Print'),
       key: Visibility.Paper,
-      onClick: onItemClicked(Visibility.Paper)
+      onClick: onItemClicked(Visibility.Paper),
+      style: {
+        fontWeight: visiblity[Visibility.Paper] ? 'bold' : 'normal'
+      }
     },
     {
       text: t('FileTitle'),
       key: Visibility.FileTitle,
-      onClick: onItemClicked(Visibility.FileTitle)
+      onClick: onItemClicked(Visibility.FileTitle),
+      style: {
+        fontWeight: visiblity[Visibility.FileTitle] ? 'bold' : 'normal'
+      }
     }
   ];
 

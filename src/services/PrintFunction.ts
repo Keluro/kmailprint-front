@@ -71,5 +71,5 @@ export const executePrintClick = async (
   //do not completeEvent it will:
   //1) prevent persistent dialog opening in OWA
   //2) crash outlook http://stackoverflow.com/questions/41059518/opening-dialogapi-from-ribbon-command-crashes-outlook-2016
-  //completeEvent();
+  event?.completed();
 };

@@ -1,3 +1,4 @@
+import { Lang } from './Language';
 import { TokenInfo, UserInfo } from './TokenInfo';
 
 export interface IOutlookService {
@@ -20,7 +21,7 @@ export interface IOutlookService {
     trailingSentence: string
   ): void;
 
-  getLocale(): string;
+  getLocale(): Lang;
 
   getMyUserInfo(): UserInfo;
 

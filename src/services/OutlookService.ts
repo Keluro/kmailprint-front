@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from 'axios';
 import { IOutlookService } from './IOulookService';
+import { Lang } from './Language';
 import { UserInfo, TokenInfo } from './TokenInfo';
 
 export class OutlookService implements IOutlookService {
-  getLocale(): string {
+  getLocale(): Lang {
     const locale = Office.context.displayLanguage;
     if (locale.startsWith('fr-')) {
-      return 'fr';
+      return Lang.FR;
     }
-    return 'en';
+    return Lang.EN;
   }
 
   private getHostInfo() {

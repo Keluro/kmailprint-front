@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IOutlookService } from '../IOulookService';
+import { Lang } from '../Language';
 import { UserInfo, TokenInfo } from '../TokenInfo';
 
 const timeout = (ms: number) => {
@@ -14,9 +15,9 @@ export class MockOutlookService implements IOutlookService {
     throw new Error('Method not implemented.');
   }
 
-  getLocale(): string {
+  getLocale(): Lang {
     console.log('Complete event fired...');
-    return 'en';
+    return Lang.EN;
   }
   completeEvent(): void {
     console.log('Complete event fired...');

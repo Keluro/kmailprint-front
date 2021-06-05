@@ -1,6 +1,7 @@
 import { DateFormat } from './DateFormats';
 import { FileTitleKind } from './FileTitleBuilderService';
 import { IOutlookService } from './IOulookService';
+import { Lang } from './Language';
 import {
   getPatternArrayFromStorage,
   getIsEntireConversationFromStorage,
@@ -17,7 +18,7 @@ import {
 import { PrintPaper } from './PrintPaper';
 
 type Settings = {
-  language: string;
+  language: Lang;
   entireConversation: boolean;
   fileTitlePattern: FileTitleKind[];
   paper: PrintPaper;
@@ -61,12 +62,12 @@ export class SettingsResolverService {
     saveDateFormatFromStorage(dateformat as string);
   }
 
-  private getLanguageOrDefault = (): string => {
+  private getLanguageOrDefault = (): Lang => {
     const lang = getLanguageFromStorage();
     if (lang === undefined) {
       return this.outlookService.getLocale();
     } else {
-      return lang;
+      return lang as Lang;
     }
   };
 

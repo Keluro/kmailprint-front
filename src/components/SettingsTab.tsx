@@ -117,7 +117,7 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
 
   const overFlowItems: ItemMenu[] = [
     {
-      text: t('Paper'),
+      text: t('Print'),
       key: Visibility.Paper,
       onClick: onItemClicked(Visibility.Paper)
     },

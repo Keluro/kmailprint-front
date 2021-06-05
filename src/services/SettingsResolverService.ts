@@ -7,13 +7,17 @@ import {
   saveIsEntireConversationStorage,
   savePatternArrayStorage,
   saveLanguageStorage,
-  deleteLanguageStorage
+  deleteLanguageStorage,
+  getPrintPaperFromStorage,
+  savePrintPaperFromStorage
 } from './LocalStorageService';
+import { PrintPaper } from './PrintPaper';
 
 type Settings = {
   language: string;
   entireConversation: boolean;
   fileTitlePattern: FileTitleKind[];
+  paper: PrintPaper;
 };
 
 export class SettingsResolverService {
@@ -23,7 +27,8 @@ export class SettingsResolverService {
     return {
       language: this.getLanguageOrDefault(),
       entireConversation: this.getIsEntireConversationOrDefault(),
-      fileTitlePattern: this.getPatternArrayOrDefault()
+      fileTitlePattern: this.getPatternArrayOrDefault(),
+      paper: this.getPrintPaperOrDefault()
     };
   };
 
@@ -41,6 +46,10 @@ export class SettingsResolverService {
 
   public wipeLang(): void {
     deleteLanguageStorage();
+  }
+
+  public savePrintPaper(paper: PrintPaper): void {
+    savePrintPaperFromStorage(paper as string);
   }
 
   private getLanguageOrDefault = (): string => {
@@ -70,5 +79,14 @@ export class SettingsResolverService {
       ];
     }
     return savedPatternKeys as FileTitleKind[];
+  };
+
+  private getPrintPaperOrDefault = (): PrintPaper => {
+    const savedValue = getPrintPaperFromStorage();
+    if (savedValue === undefined) {
+      return PrintPaper.A4;
+    } else {
+      return savedValue as PrintPaper;
+    }
   };
 }

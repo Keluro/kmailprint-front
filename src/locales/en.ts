@@ -16,7 +16,7 @@ export default {
   Emaildata: 'Email data',
   DateFormat: 'Date format',
   Lang: 'Language',
-  Paper: 'Paper',
+  Print: 'Print',
   MoreSettings: 'More settings',
   Subject: 'Subject',
   NormSubject: 'Normalized subject',

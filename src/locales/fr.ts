@@ -19,7 +19,7 @@ export default {
   Lang: 'Langue',
   MoreSettings: 'Plus de paramètres',
   Subject: 'Sujet',
-  Paper: 'Imprimé',
+  Print: 'Imprimé',
   NormSubject: 'Sujet normalisé',
   Datetimesent: "Date d'envoi",
   SenderName: "Nom de l'expéditeur",

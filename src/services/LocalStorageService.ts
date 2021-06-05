@@ -1,6 +1,7 @@
 const FILETITLE_PATTERN = 'filetitle_pattern';
 const SAVE_ENTIRE_CONV = 'is_entire_conv';
 const FORCE_LANG = 'language';
+const PAPER = 'paper';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const savePatternArrayStorage = (array: string[]) => {
@@ -69,5 +70,25 @@ export const getPatternArrayFromStorage = () => {
     return undefined;
   } catch (ex) {
     console.log('Cannot access localStorage for getting');
+  }
+};
+
+export const getPrintPaperFromStorage = () => {
+  try {
+    const str = window.localStorage.getItem(PAPER);
+    if (typeof str === 'string' && str !== '') {
+      return str;
+    }
+    return undefined;
+  } catch (ex) {
+    console.log('Cannot access localStorage for getting');
+  }
+};
+
+export const savePrintPaperFromStorage = (paper: string) => {
+  try {
+    window.localStorage.setItem(PAPER, paper);
+  } catch (ex) {
+    console.log('Cannot access localStorage for saving');
   }
 };

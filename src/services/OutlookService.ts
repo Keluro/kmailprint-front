@@ -84,42 +84,6 @@ export class OutlookService implements IOutlookService {
     return item.subject;
   }
 
-  // TODO:
-  async getDateTimeSentAsync(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      (Office as any).context.mailbox.getCallbackTokenAsync(
-        (asyncResult: any) => {
-          if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-            const token = asyncResult.value;
-            const mailbox = Office.context.mailbox;
-            // if (mailbox.item == undefined) {
-            //   return '';
-            // }
-            const server_url = process.env.API_URL;
-            if (mailbox.item == undefined) {
-              reject('Cannot retrieve itemID for EWS call');
-              return;
-            }
-            const url =
-              `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
-              encodeURIComponent(mailbox.ewsUrl) +
-              '&token=' +
-              encodeURIComponent(token) +
-              '&itemId=' +
-              encodeURIComponent(mailbox.item?.itemId);
-            const resultPromise = axios.get(url);
-            resultPromise.then(
-              (value: AxiosResponse<string>) => {
-                resolve(value.data);
-              },
-              () => reject('Failure calling EWS server')
-            );
-          }
-        }
-      );
-    });
-  }
-
   async showNotification(text: string): Promise<void> {
     (Office as any).context.mailbox.item.notificationMessages.replaceAsync(
       'status',

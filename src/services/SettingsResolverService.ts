@@ -6,7 +6,8 @@ import {
   getLanguageFromStorage,
   saveIsEntireConversationStorage,
   savePatternArrayStorage,
-  saveLanguageStorage
+  saveLanguageStorage,
+  deleteLanguageStorage
 } from './LocalStorageService';
 
 type Settings = {
@@ -36,6 +37,10 @@ export class SettingsResolverService {
 
   public saveLang(lang: string): void {
     saveLanguageStorage(lang);
+  }
+
+  public wipeLang(): void {
+    deleteLanguageStorage();
   }
 
   private getLanguageOrDefault = (): string => {

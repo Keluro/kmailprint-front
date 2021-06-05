@@ -48,5 +48,6 @@ export default {
   SupportKMailPrintHosting2: 'Supportez KMailPrint en faisant un don.',
   Yes: 'Oui',
   No: 'Non',
-  Close: 'Fermer'
+  Close: 'Fermer',
+  UseOutlookDefault: 'Utiliser la langue de Outlook'
 } as { [key: string]: string };

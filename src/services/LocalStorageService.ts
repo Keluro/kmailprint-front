@@ -27,6 +27,14 @@ export const saveLanguageStorage = (langKey: string) => {
   }
 };
 
+export const deleteLanguageStorage = () => {
+  try {
+    window.localStorage.removeItem(FORCE_LANG);
+  } catch (ex) {
+    console.log('Cannot access localStorage for deletion');
+  }
+};
+
 export const getLanguageFromStorage = () => {
   try {
     const str = window.localStorage.getItem(FORCE_LANG);

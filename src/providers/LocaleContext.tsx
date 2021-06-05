@@ -1,6 +1,7 @@
 import React from 'react';
 import { tLocale } from '../locales/i18n';
 import { IOutlookService } from '../services/IOulookService';
+import { SettingsResolverService } from '../services/SettingsResolverService';
 
 export const LocaleContext = React.createContext<LocaleContextType>({
   t: () => ''
@@ -22,8 +23,8 @@ export const LocaleProvider = ({
   children,
   outlookService
 }: LocaleProviderPropTypes): JSX.Element => {
-  const locale = outlookService.getLocale();
-
+  const settingsResolver = new SettingsResolverService(outlookService);
+  const locale = settingsResolver.getSettings().language;
   const t = (path: string) => {
     return tLocale(locale, path);
   };

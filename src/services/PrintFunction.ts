@@ -68,7 +68,9 @@ export const executePrintClick = async (
   );
 
   service.ioService.openfile(fileTitle, result.blob); //does not work in Safari...
-  //do not completeEvent it will:
+  // EDIT: [baptra] June 6th 2021: I dediced to turn on event completion again... comment below is deprecated
+  // looks like we need to complete the event to trigger two actions on Outlook desktop
+  // OLD: do not completeEvent it will:
   //1) prevent persistent dialog opening in OWA
   //2) crash outlook http://stackoverflow.com/questions/41059518/opening-dialogapi-from-ribbon-command-crashes-outlook-2016
   event?.completed();

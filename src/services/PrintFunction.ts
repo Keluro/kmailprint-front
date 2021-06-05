@@ -1,5 +1,5 @@
 import { FileTitleBuilderService } from './FileTitleBuilderService';
-import { SettingsResolverService } from '../services/SettingsResolverService';
+import { SettingsResolverService } from './SettingsResolverService';
 import { tLocale } from '../locales/i18n';
 import { Services } from './Services';
 

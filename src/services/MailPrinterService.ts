@@ -57,7 +57,7 @@ export class MailPrinterService implements IMailPrinterService {
       encodeURIComponent(tokenInfo.itemId) +
       '&lang=' +
       encodeURIComponent(lang);
-    '&format=' + encodeURIComponent(dateFormat);
+    '&dateformat=' + encodeURIComponent(dateFormat);
     const resultPromise = await axios.get(url);
     return resultPromise.data as string;
   }

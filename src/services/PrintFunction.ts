@@ -60,12 +60,14 @@ export const executePrintClick = async (
 
   service.outlookService.showNotification(t('SuccessfullyCreated'));
 
-  service.outlookService.showDownloadDialog(
-    dowloadLinkText,
-    urlToOpen,
-    fileTitle,
-    t('SupportKMailPrintHosting2')
-  );
+  if (settings.displayDialog) {
+    service.outlookService.showDownloadDialog(
+      dowloadLinkText,
+      urlToOpen,
+      fileTitle,
+      t('SupportKMailPrintHosting2')
+    );
+  }
 
   if (!service.ioService.isSafari()) {
     service.ioService.openfile(fileTitle, result.blob); //does not work in Safari...

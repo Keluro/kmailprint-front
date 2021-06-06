@@ -9,21 +9,23 @@ import { IServiceProps } from './IServiceProps';
 import { LocaleContext } from '../providers/LocaleContext';
 import EmailDataSettings from './EmailDataSettings';
 import DatetimeSettings from './DatetimeSettings';
+import OtherSettings from './OtherSettings';
 import LangSettings from './LangSettings';
 import TitleBuilderSettings from './TitleBuilderSettings';
 import PaperSettings from './PaperSettings';
 import { FontWeights } from '@fluentui/react';
 
-enum Visibility {
+enum VisibilityTab {
   EmailData = 'emaildata',
   Lang = 'lang',
   DateFormat = 'dateformat',
   FileTitle = 'filetitle',
-  Paper = 'paper'
+  Paper = 'paper',
+  Other = 'other'
 }
 
 type VisibilityDict = {
-  [K in Visibility]: boolean;
+  [K in VisibilityTab]: boolean;
 };
 
 type ItemMenu = {
@@ -43,7 +45,7 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
         styles={{
           root: {
             marginRight: 10,
-            fontWeight: visiblity[item.key as Visibility]
+            fontWeight: visiblity[item.key as VisibilityTab]
               ? FontWeights.bold
               : FontWeights.regular
           }
@@ -79,17 +81,18 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
 
   const getAllVisibilityTurnedOff = () => {
     return {
-      [Visibility.EmailData]: false,
-      [Visibility.Lang]: false,
-      [Visibility.DateFormat]: false,
-      [Visibility.FileTitle]: false,
-      [Visibility.Paper]: false
+      [VisibilityTab.EmailData]: false,
+      [VisibilityTab.Lang]: false,
+      [VisibilityTab.DateFormat]: false,
+      [VisibilityTab.FileTitle]: false,
+      [VisibilityTab.Paper]: false,
+      [VisibilityTab.Other]: false
     };
   };
 
   const defaultVisibility = () => {
     const visibility = getAllVisibilityTurnedOff();
-    visibility[Visibility.FileTitle] = true;
+    visibility[VisibilityTab.EmailData] = true;
     return visibility;
   };
 
@@ -97,10 +100,10 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
     defaultVisibility()
   );
 
-  const onItemClicked = (itemKey: Visibility): (() => void) => {
+  const onItemClicked = (itemKey: VisibilityTab): (() => void) => {
     return () => {
       const visibility = getAllVisibilityTurnedOff();
-      const key: Visibility = itemKey;
+      const key: VisibilityTab = itemKey;
       visibility[key] = true;
       setVisibility(visibility);
     };
@@ -109,20 +112,20 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
   const items: ItemMenu[] = [
     {
       text: t('Emaildata'),
-      key: Visibility.EmailData,
-      onClick: onItemClicked(Visibility.EmailData),
+      key: VisibilityTab.EmailData,
+      onClick: onItemClicked(VisibilityTab.EmailData),
       style: {}
     },
     {
       text: t('DateFormat'),
-      key: Visibility.DateFormat,
-      onClick: onItemClicked(Visibility.DateFormat),
+      key: VisibilityTab.DateFormat,
+      onClick: onItemClicked(VisibilityTab.DateFormat),
       style: {}
     },
     {
       text: t('Lang'),
-      key: Visibility.Lang,
-      onClick: onItemClicked(Visibility.Lang),
+      key: VisibilityTab.Lang,
+      onClick: onItemClicked(VisibilityTab.Lang),
       style: {}
     }
   ];
@@ -130,18 +133,26 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
   const overFlowItems: ItemMenu[] = [
     {
       text: t('Print'),
-      key: Visibility.Paper,
-      onClick: onItemClicked(Visibility.Paper),
+      key: VisibilityTab.Paper,
+      onClick: onItemClicked(VisibilityTab.Paper),
       style: {
-        fontWeight: visiblity[Visibility.Paper] ? 'bold' : 'normal'
+        fontWeight: visiblity[VisibilityTab.Paper] ? 'bold' : 'normal'
       }
     },
     {
       text: t('FileTitle'),
-      key: Visibility.FileTitle,
-      onClick: onItemClicked(Visibility.FileTitle),
+      key: VisibilityTab.FileTitle,
+      onClick: onItemClicked(VisibilityTab.FileTitle),
       style: {
-        fontWeight: visiblity[Visibility.FileTitle] ? 'bold' : 'normal'
+        fontWeight: visiblity[VisibilityTab.FileTitle] ? 'bold' : 'normal'
+      }
+    },
+    {
+      text: t('OtherSettings'),
+      key: VisibilityTab.Other,
+      onClick: onItemClicked(VisibilityTab.Other),
+      style: {
+        fontWeight: visiblity[VisibilityTab.Other] ? 'bold' : 'normal'
       }
     }
   ];
@@ -157,11 +168,14 @@ const SettingsTab: React.FC<IServiceProps> = (props: IServiceProps) => {
         onRenderOverflowButton={onRenderOverflowButton}
         onRenderItem={onRenderItem}
       />
-      {visiblity[Visibility.EmailData] && <EmailDataSettings {...props} />}
-      {visiblity[Visibility.DateFormat] && <DatetimeSettings {...props} />}
-      {visiblity[Visibility.Lang] && <LangSettings {...props} />}
-      {visiblity[Visibility.Paper] && <PaperSettings {...props} />}
-      {visiblity[Visibility.FileTitle] && <TitleBuilderSettings {...props} />}
+      {visiblity[VisibilityTab.EmailData] && <EmailDataSettings {...props} />}
+      {visiblity[VisibilityTab.DateFormat] && <DatetimeSettings {...props} />}
+      {visiblity[VisibilityTab.Lang] && <LangSettings {...props} />}
+      {visiblity[VisibilityTab.Paper] && <PaperSettings {...props} />}
+      {visiblity[VisibilityTab.FileTitle] && (
+        <TitleBuilderSettings {...props} />
+      )}
+      {visiblity[VisibilityTab.Other] && <OtherSettings {...props} />}
     </>
   );
 };

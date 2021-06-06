@@ -52,5 +52,10 @@ export default {
     'Privacy matters, no content or data is kept on KMailPrint servers',
   ChooseLanguage: 'Choose language used by addin',
   ChoosePaperSettings: 'Choose the paper format',
-  IncludeCCRecipients: 'Include CC: recipients'
+  ComposeTitle: 'Compose the filename for the PDF file',
+  IncludeCCRecipients: 'Include CC: recipients',
+  DisplayDialog: 'Display dialog after printing',
+  OtherSettings: 'Other settings',
+  DialogWarningInfo:
+    'Automated download may not work depending on your browser configuration or with Outlook for Mac and Safari. Use dialog to retreive the printed file.'
 } as { [key: string]: string };

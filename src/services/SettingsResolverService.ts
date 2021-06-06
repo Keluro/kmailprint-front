@@ -15,7 +15,9 @@ import {
   saveDateFormat,
   getDateFormatFromStorage,
   saveIncludeCC,
-  getIncludeCCFromStorage
+  getIncludeCCFromStorage,
+  getDisplayDialogFromStorage,
+  saveDisplayDialog
 } from './LocalStorageService';
 import { PrintPaper } from './PrintPaper';
 
@@ -26,6 +28,7 @@ type Settings = {
   fileTitlePattern: FileTitleKind[];
   paper: PrintPaper;
   dateFormat: DateFormat;
+  displayDialog: boolean;
 };
 
 export class SettingsResolverService {
@@ -38,7 +41,8 @@ export class SettingsResolverService {
       fileTitlePattern: this.getPatternArrayOrDefault(),
       paper: this.getPrintPaperOrDefault(),
       dateFormat: this.getDateFormatOrDefault(),
-      includeCC: this.getIncludeCCRecipientsOrDefault()
+      includeCC: this.getIncludeCCRecipientsOrDefault(),
+      displayDialog: this.getDisplayDialogOrDefault()
     };
   };
 
@@ -68,6 +72,10 @@ export class SettingsResolverService {
 
   public saveDateFormat(dateformat: DateFormat): void {
     saveDateFormat(dateformat as string);
+  }
+
+  public saveDisplayDialog(displayDialog: boolean): void {
+    saveDisplayDialog(displayDialog);
   }
 
   private getLanguageOrDefault = (): Lang => {
@@ -121,6 +129,15 @@ export class SettingsResolverService {
     const savedValue = getIncludeCCFromStorage();
     if (savedValue === undefined) {
       return false;
+    } else {
+      return savedValue;
+    }
+  };
+
+  private getDisplayDialogOrDefault = (): boolean => {
+    const savedValue = getDisplayDialogFromStorage();
+    if (savedValue === undefined) {
+      return true;
     } else {
       return savedValue;
     }

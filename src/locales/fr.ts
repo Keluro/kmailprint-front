@@ -56,5 +56,9 @@ export default {
   ChooseLanguage: "Choisissez la langue utilisée par l'addin",
   ChoosePaperSettings: "Choisissez le format d'impression",
   ComposeTitle: 'Composez le titre du fichier pdf',
-  IncludeCCRecipients: 'Inclure les destinataires en copie'
+  IncludeCCRecipients: 'Inclure les destinataires en copie',
+  DisplayDialog: 'Afficher la zone de dialogue après impression',
+  OtherSettings: 'Autres paramètres',
+  DialogWarningInfo:
+    'Le téléchargement automatique peut ne pas fonctionner en fonction de votre configuration de navigateur ou avec Outlook for Mac et Safari. Utilisez la boîte de dialog pour récupérer le fichier.'
 } as { [key: string]: string };

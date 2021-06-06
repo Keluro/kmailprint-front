@@ -4,6 +4,7 @@ const FORCE_LANG = 'language';
 const PAPER = 'paper';
 const DATE_FORMAT = 'date_format';
 const INCLUDE_CCRECIPIENTS = 'includerecipients';
+const DISPLAY_DIALOG = 'displaydialog';
 
 const getBooleanFromStorage = (key: string): boolean | undefined => {
   try {
@@ -97,4 +98,12 @@ export const saveIncludeCC = (includeCC: boolean) => {
 
 export const getIncludeCCFromStorage = () => {
   return getBooleanFromStorage(INCLUDE_CCRECIPIENTS);
+};
+
+export const getDisplayDialogFromStorage = () => {
+  return getBooleanFromStorage(DISPLAY_DIALOG);
+};
+
+export const saveDisplayDialog = (displayDialog: boolean) => {
+  setInStorage(DISPLAY_DIALOG, displayDialog.toString());
 };

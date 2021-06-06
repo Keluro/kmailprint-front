@@ -13,6 +13,10 @@ const EmailDataSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
     settingsResolver.getSettings().entireConversation
   );
 
+  const [includeCCRecipients, setIncludeCCRecipients] = React.useState<boolean>(
+    settingsResolver.getSettings().includeCC
+  );
+
   const _onChangeIsEntireConversation = (
     ev: React.MouseEvent<HTMLElement>,
     checked?: boolean
@@ -20,6 +24,16 @@ const EmailDataSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
     if (checked !== undefined) {
       setIsEntireConv(checked);
       settingsResolver.saveIsEntireConversation(checked);
+    }
+  };
+
+  const _onChangeIncludeCCRecipients = (
+    ev: React.MouseEvent<HTMLElement>,
+    checked?: boolean
+  ) => {
+    if (checked !== undefined) {
+      setIncludeCCRecipients(checked);
+      settingsResolver.saveIncludeCC(checked);
     }
   };
 
@@ -31,6 +45,14 @@ const EmailDataSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
         label={t('EntireEmailStr')}
         defaultChecked={isEntireConv}
         onChange={_onChangeIsEntireConversation}
+        onText={t('Yes')}
+        offText={t('No')}
+      />
+
+      <Toggle
+        label={t('IncludeCCRecipients')}
+        defaultChecked={includeCCRecipients}
+        onChange={_onChangeIncludeCCRecipients}
         onText={t('Yes')}
         offText={t('No')}
       />

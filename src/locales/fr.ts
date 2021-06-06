@@ -55,5 +55,6 @@ export default {
     "La confidentialité est clé, aucun contenu ou donnée n'est conservée sur les serveurs de KMailprint",
   ChooseLanguage: "Choisissez la langue utilisée par l'addin",
   ChoosePaperSettings: "Choisissez le format d'impression",
-  ComposeTitle: 'Composez le titre du fichier pdf'
+  ComposeTitle: 'Composez le titre du fichier pdf',
+  IncludeCCRecipients: 'Inclure les destinataires en copie'
 } as { [key: string]: string };

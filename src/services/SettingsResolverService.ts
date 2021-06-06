@@ -11,15 +11,18 @@ import {
   saveLanguageStorage,
   deleteLanguageStorage,
   getPrintPaperFromStorage,
-  savePrintPaperFromStorage,
-  saveDateFormatFromStorage,
-  getDateFormatFromStorage
+  savePrintPaper,
+  saveDateFormat,
+  getDateFormatFromStorage,
+  saveIncludeCC,
+  getIncludeCCFromStorage
 } from './LocalStorageService';
 import { PrintPaper } from './PrintPaper';
 
 type Settings = {
   language: Lang;
   entireConversation: boolean;
+  includeCC: boolean;
   fileTitlePattern: FileTitleKind[];
   paper: PrintPaper;
   dateFormat: DateFormat;
@@ -34,12 +37,17 @@ export class SettingsResolverService {
       entireConversation: this.getIsEntireConversationOrDefault(),
       fileTitlePattern: this.getPatternArrayOrDefault(),
       paper: this.getPrintPaperOrDefault(),
-      dateFormat: this.getDateFormatOrDefault()
+      dateFormat: this.getDateFormatOrDefault(),
+      includeCC: this.getIncludeCCRecipientsOrDefault()
     };
   };
 
   public saveIsEntireConversation = (entireConversation: boolean): void => {
     saveIsEntireConversationStorage(entireConversation);
+  };
+
+  public saveIncludeCC = (includeCC: boolean): void => {
+    saveIncludeCC(includeCC);
   };
 
   public savePatternArray(patternArray: FileTitleKind[]): void {
@@ -55,11 +63,11 @@ export class SettingsResolverService {
   }
 
   public savePrintPaper(paper: PrintPaper): void {
-    savePrintPaperFromStorage(paper as string);
+    savePrintPaper(paper as string);
   }
 
   public saveDateFormat(dateformat: DateFormat): void {
-    saveDateFormatFromStorage(dateformat as string);
+    saveDateFormat(dateformat as string);
   }
 
   private getLanguageOrDefault = (): Lang => {
@@ -106,6 +114,15 @@ export class SettingsResolverService {
       return DateFormat.r;
     } else {
       return savedValue as DateFormat;
+    }
+  };
+
+  private getIncludeCCRecipientsOrDefault = (): boolean => {
+    const savedValue = getIncludeCCFromStorage();
+    if (savedValue === undefined) {
+      return false;
+    } else {
+      return savedValue;
     }
   };
 }

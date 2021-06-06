@@ -17,12 +17,14 @@ export class MailPrinterService implements IMailPrinterService {
     ).getSettings();
 
     const entireConversation = settings.entireConversation;
+    const includeCC = settings.includeCC;
     const dateFormat = settings.dateFormat;
     const paperFormat = settings.paper;
     const data = {
       fileTitle,
       tokenInfo,
       entireConversation,
+      includeCC,
       userInfo,
       dateFormat,
       paperFormat,

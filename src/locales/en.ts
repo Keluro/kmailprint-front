@@ -52,5 +52,5 @@ export default {
     'Privacy matters, no content or data is kept on KMailPrint servers',
   ChooseLanguage: 'Choose language used by addin',
   ChoosePaperSettings: 'Choose the paper format',
-  ComposeTitle: 'Compose the pdf filename'
+  IncludeCCRecipients: 'Include CC: recipients'
 } as { [key: string]: string };

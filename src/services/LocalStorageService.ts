@@ -3,30 +3,52 @@ const SAVE_ENTIRE_CONV = 'is_entire_conv';
 const FORCE_LANG = 'language';
 const PAPER = 'paper';
 const DATE_FORMAT = 'date_format';
+const INCLUDE_CCRECIPIENTS = 'includerecipients';
+
+const getBooleanFromStorage = (key: string): boolean | undefined => {
+  try {
+    const str = window.localStorage.getItem(key);
+    if (typeof str === 'string' && str !== '') {
+      return str == 'true';
+    }
+    return undefined;
+  } catch (ex) {
+    console.log('Cannot access localStorage for getting');
+    return undefined;
+  }
+};
+
+const getStringFromStorage = (key: string): string | undefined => {
+  try {
+    const str = window.localStorage.getItem(key);
+    if (typeof str === 'string' && str !== '') {
+      return str;
+    }
+    return undefined;
+  } catch (ex) {
+    console.log('Cannot access localStorage for getting');
+  }
+};
+
+const setInStorage = (key: string, val: string) => {
+  try {
+    window.localStorage.setItem(key, val);
+  } catch (ex) {
+    console.log('Cannot access localStorage for saving');
+  }
+};
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const savePatternArrayStorage = (array: string[]) => {
-  try {
-    window.localStorage.setItem(FILETITLE_PATTERN, array.join('¤'));
-  } catch (ex) {
-    console.log('Cannot access localStorage for saving');
-  }
+  setInStorage(FILETITLE_PATTERN, array.join('¤'));
 };
 
 export const saveIsEntireConversationStorage = (isEntireConv: boolean) => {
-  try {
-    window.localStorage.setItem(SAVE_ENTIRE_CONV, isEntireConv.toString());
-  } catch (ex) {
-    console.log('Cannot access localStorage for saving');
-  }
+  setInStorage(SAVE_ENTIRE_CONV, isEntireConv.toString());
 };
 
 export const saveLanguageStorage = (langKey: string) => {
-  try {
-    window.localStorage.setItem(FORCE_LANG, langKey);
-  } catch (ex) {
-    console.log('Cannot access localStorage for saving');
-  }
+  setInStorage(FORCE_LANG, langKey);
 };
 
 export const deleteLanguageStorage = () => {
@@ -38,78 +60,41 @@ export const deleteLanguageStorage = () => {
 };
 
 export const getLanguageFromStorage = () => {
-  try {
-    const str = window.localStorage.getItem(FORCE_LANG);
-    if (typeof str === 'string' && str !== '') {
-      return str;
-    }
-    return undefined;
-  } catch (ex) {
-    console.log('Cannot access localStorage for getting');
-  }
+  return getStringFromStorage(FORCE_LANG);
 };
 
 export const getIsEntireConversationFromStorage = () => {
-  try {
-    const str = window.localStorage.getItem(SAVE_ENTIRE_CONV);
-    if (typeof str === 'string' && str !== '') {
-      return str == 'true';
-    }
-    return undefined;
-  } catch (ex) {
-    console.log('Cannot access localStorage for getting');
-    return undefined;
-  }
+  return getBooleanFromStorage(SAVE_ENTIRE_CONV);
 };
 
 export const getPatternArrayFromStorage = () => {
-  try {
-    const str = window.localStorage.getItem(FILETITLE_PATTERN);
-    if (typeof str === 'string' && str !== '') {
-      return str.split('¤');
-    }
-    return undefined;
-  } catch (ex) {
-    console.log('Cannot access localStorage for getting');
+  const value = getStringFromStorage(FILETITLE_PATTERN);
+  if (value !== undefined) {
+    return value.split('¤');
   }
+  return undefined;
 };
 
 export const getPrintPaperFromStorage = () => {
-  try {
-    const str = window.localStorage.getItem(PAPER);
-    if (typeof str === 'string' && str !== '') {
-      return str;
-    }
-    return undefined;
-  } catch (ex) {
-    console.log('Cannot access localStorage for getting');
-  }
+  return getStringFromStorage(PAPER);
 };
 
 export const getDateFormatFromStorage = () => {
-  try {
-    const str = window.localStorage.getItem(DATE_FORMAT);
-    if (typeof str === 'string' && str !== '') {
-      return str;
-    }
-    return undefined;
-  } catch (ex) {
-    console.log('Cannot access localStorage for getting');
-  }
+  return getStringFromStorage(DATE_FORMAT);
 };
 
-export const savePrintPaperFromStorage = (paper: string) => {
-  try {
-    window.localStorage.setItem(PAPER, paper);
-  } catch (ex) {
-    console.log('Cannot access localStorage for saving');
-  }
+export const savePrintPaper = (paper: string) => {
+  setInStorage(PAPER, paper);
 };
 
-export const saveDateFormatFromStorage = (format: string) => {
-  try {
-    window.localStorage.setItem(DATE_FORMAT, format);
-  } catch (ex) {
-    console.log('Cannot access localStorage for saving');
-  }
+export const saveDateFormat = (format: string) => {
+  setInStorage(DATE_FORMAT, format);
+};
+
+export const saveIncludeCC = (includeCC: boolean) => {
+  setInStorage(INCLUDE_CCRECIPIENTS, includeCC.toString());
+};
+
+export const getIncludeCCFromStorage = () => {
+  return getBooleanFromStorage(INCLUDE_CCRECIPIENTS);
 };

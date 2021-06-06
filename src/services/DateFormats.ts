@@ -2,7 +2,6 @@
 // Printing format D : Sunday, July 12, 1998
 // Printing format f : Sunday, July 12, 1998 7:17 PM
 // Printing format g : 7/12/1998 7:17 PM
-// Printing format r : Sun, 12 Jul 1998 19:17:45 GMT
 // Printing format s : 1998-07-12T19:17:45
 // Printing format u : 1998-07-12 19:17:45Z
 // Printing format U : Sunday, July 12, 1998 5:17:45 PM
@@ -11,7 +10,6 @@
 // Printing format D : dimanche 12 juillet 1998
 // Printing format f : dimanche 12 juillet 1998 19:17
 // Printing format g : 12/07/1998 19:17
-// Printing format r : Sun, 12 Jul 1998 19:17:45 GMT
 // Printing format s : 1998-07-12T19:17:45
 // Printing format u : 1998-07-12 19:17:45Z
 // Printing format U : dimanche 12 juillet 1998 17:17:45
@@ -23,7 +21,6 @@ export enum DateFormat {
   D = 'D',
   f = 'f',
   g = 'g',
-  r = 'r',
   s = 's',
   u = 'u',
   U = 'U'
@@ -51,8 +48,6 @@ const formattedFr = (format: DateFormat) => {
       return 'dimanche 12 juillet 1998 19:17';
     case DateFormat.g:
       return '12/07/1998 19:17';
-    case DateFormat.r:
-      return 'Sun, 12 Jul 1998 19:17:45 GMT';
     case DateFormat.s:
       return '1998-07-12T19:17:45';
     case DateFormat.u:
@@ -80,8 +75,6 @@ const formattedUS = (format: DateFormat) => {
       return 'Sunday, July 12, 1998 7:17 PM';
     case DateFormat.g:
       return '7/12/1998 7:17 PM';
-    case DateFormat.r:
-      return 'Sun, 12 Jul 1998 19:17:45 GMT';
     case DateFormat.s:
       return '1998-07-12T19:17:45';
     case DateFormat.u:

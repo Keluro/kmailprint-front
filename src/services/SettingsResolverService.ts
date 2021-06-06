@@ -124,7 +124,7 @@ export class SettingsResolverService {
   private getDateFormatOrDefault = (): DateFormat => {
     const savedValue = getDateFormatFromStorage();
     if (savedValue === undefined) {
-      return DateFormat.r;
+      return DateFormat.s;
     } else {
       return savedValue as DateFormat;
     }

@@ -55,6 +55,7 @@ export class MailPrinterService implements IMailPrinterService {
     dateFormat: DateFormat
   ): Promise<string> {
     const server_url = process.env.API_URL;
+    const userInfo = this.outlookService.getMyUserInfo();
     const url =
       `${server_url}/api/EmailsDateTimeSent?ewsUrl=` +
       encodeURIComponent(tokenInfo.ewsUrl) +
@@ -65,7 +66,9 @@ export class MailPrinterService implements IMailPrinterService {
       '&lang=' +
       encodeURIComponent(lang) +
       '&dateFormat=' +
-      encodeURIComponent(dateFormat);
+      encodeURIComponent(dateFormat) +
+      '&timeZone=' +
+      encodeURIComponent(userInfo.TimeZone);
     const resultPromise = await axios.get(url);
     return resultPromise.data as string;
   }

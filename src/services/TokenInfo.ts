@@ -8,4 +8,5 @@ export type UserInfo = {
   Name: string;
   Email: string;
   HostInfo: string;
+  TimeZone: string;
 };

@@ -11,6 +11,7 @@ export class MockOutlookService implements IOutlookService {
   getMyUserInfo(): UserInfo {
     throw new Error('Method not implemented.');
   }
+
   async getTokenInfo() {
     await timeout(50);
     const token: TokenInfo = {

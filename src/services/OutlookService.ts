@@ -33,7 +33,8 @@ export class OutlookService implements IOutlookService {
     return {
       Name: profile.displayName,
       Email: profile.emailAddress,
-      HostInfo: hostInfo
+      HostInfo: hostInfo,
+      TimeZone: profile.timeZone
     };
   }
 

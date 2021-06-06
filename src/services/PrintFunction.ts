@@ -76,6 +76,6 @@ export const executePrintClick = async (
 
   if (!service.ioService.isSafari()) {
     service.ioService.openfile(fileTitle, result.blob); //does not work in Safari...
-    event?.completed();
   }
+  event?.completed();
 };

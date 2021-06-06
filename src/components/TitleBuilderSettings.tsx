@@ -110,6 +110,7 @@ const TitleBuilderSettings: React.FC<IServiceProps> = (
   return (
     <>
       <ComboBox
+        label={t('ComposeTitle')}
         componentRef={comboBoxRef}
         defaultSelectedKey={allKeys[0]}
         options={updateOptionsComboBox()}

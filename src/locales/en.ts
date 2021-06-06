@@ -49,5 +49,8 @@ export default {
   UseOutlookDefault: 'Use Outlook language',
   SelectDateTimeFormat: 'Select the datetime format',
   PrivacyKmailPrint:
-    'Privacy matters, no content or personal data is kept on KMailPrint servers'
+    'Privacy matters, no content or data is kept on KMailPrint servers',
+  ChooseLanguage: 'Choose language used by addin',
+  ChoosePaperSettings: 'Choose the paper format',
+  ComposeTitle: 'Compose the pdf filename'
 } as { [key: string]: string };

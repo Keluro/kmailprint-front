@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosResponse } from 'axios';
 import { IOutlookService } from './IOulookService';
 import { Lang } from './Language';
 import { UserInfo, TokenInfo } from './TokenInfo';

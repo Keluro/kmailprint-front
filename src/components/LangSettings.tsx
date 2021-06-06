@@ -46,6 +46,7 @@ const LangSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
   return (
     <>
       <ComboBox
+        label={t('ChooseLanguage')}
         defaultSelectedKey={settings.language}
         options={langs}
         onChange={onChangeOptions}

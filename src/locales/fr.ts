@@ -52,5 +52,8 @@ export default {
   UseOutlookDefault: 'Utiliser la langue de Outlook',
   SelectDateTimeFormat: 'Choisissez le format de date',
   PrivacyKmailPrint:
-    "La confidentialité est clé, aucun contenu ou donnée n'est est conservée sur les serveurs de KMailprint"
+    "La confidentialité est clé, aucun contenu ou donnée n'est conservée sur les serveurs de KMailprint",
+  ChooseLanguage: "Choisissez la langue utilisée par l'addin",
+  ChoosePaperSettings: "Choisissez le format d'impression",
+  ComposeTitle: 'Composez le titre du fichier pdf'
 } as { [key: string]: string };

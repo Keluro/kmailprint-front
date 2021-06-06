@@ -5,11 +5,14 @@ import {
   IComboBoxStyles
 } from '@fluentui/react';
 import React from 'react';
+import { LocaleContext } from '../providers/LocaleContext';
 import { PrintPaper } from '../services/PrintPaper';
 import { SettingsResolverService } from '../services/SettingsResolverService';
 import { IServiceProps } from './IServiceProps';
 
 const PaperSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
+  const { t } = React.useContext(LocaleContext);
+
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 100 } };
   const settingsResolver = new SettingsResolverService(
     props.services.outlookService
@@ -38,6 +41,7 @@ const PaperSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
   return (
     <>
       <ComboBox
+        label={t('ChoosePaperSettings')}
         defaultSelectedKey={settings.paper}
         options={langs}
         onChange={onChangeOptions}

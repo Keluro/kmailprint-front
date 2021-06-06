@@ -17,7 +17,8 @@ import {
   saveIncludeCC,
   getIncludeCCFromStorage,
   getDisplayDialogFromStorage,
-  saveDisplayDialog
+  saveDisplayDialog,
+  wipeAllSettings
 } from './LocalStorageService';
 import { PrintPaper } from './PrintPaper';
 
@@ -64,6 +65,10 @@ export class SettingsResolverService {
 
   public wipeLang(): void {
     deleteLanguageStorage();
+  }
+
+  public wipeAllSettings(): void {
+    wipeAllSettings();
   }
 
   public savePrintPaper(paper: PrintPaper): void {

@@ -4,7 +4,8 @@ import { Toggle } from '@fluentui/react/lib/Toggle';
 import { SettingsResolverService } from '../services/SettingsResolverService';
 import { LocaleContext } from '../providers/LocaleContext';
 import { IServiceProps } from './IServiceProps';
-import { FontSizes, Text } from '@fluentui/react';
+import { DefaultButton, FontSizes, Text } from '@fluentui/react';
+import { wipeAllSettings } from '../services/LocalStorageService';
 
 const OtherSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
   const settingsResolver = new SettingsResolverService(
@@ -25,6 +26,11 @@ const OtherSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
     }
   };
 
+  const _onClickDefault = () => {
+    settingsResolver.wipeAllSettings();
+    window.location.reload();
+  };
+
   const { t } = React.useContext(LocaleContext);
 
   return (
@@ -40,6 +46,12 @@ const OtherSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
       <Text style={{ fontSize: FontSizes.size12 }}>
         {t('DialogWarningInfo')}
       </Text>
+
+      <DefaultButton
+        style={{ marginTop: 15 }}
+        text={t('ResetAllSettingsToDefault')}
+        onClick={_onClickDefault}
+      ></DefaultButton>
     </>
   );
 };

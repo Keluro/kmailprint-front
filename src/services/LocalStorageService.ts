@@ -6,6 +6,16 @@ const DATE_FORMAT = 'date_format';
 const INCLUDE_CCRECIPIENTS = 'includerecipients';
 const DISPLAY_DIALOG = 'displaydialog';
 
+const all_settings = [
+  FILETITLE_PATTERN,
+  SAVE_ENTIRE_CONV,
+  FORCE_LANG,
+  PAPER,
+  DATE_FORMAT,
+  INCLUDE_CCRECIPIENTS,
+  DISPLAY_DIALOG
+];
+
 const getBooleanFromStorage = (key: string): boolean | undefined => {
   try {
     const str = window.localStorage.getItem(key);
@@ -39,6 +49,14 @@ const setInStorage = (key: string, val: string) => {
   }
 };
 
+const removeItem = (key: string) => {
+  try {
+    window.localStorage.removeItem(key);
+  } catch (ex) {
+    console.log('Cannot access localStorage for deletion');
+  }
+};
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const savePatternArrayStorage = (array: string[]) => {
   setInStorage(FILETITLE_PATTERN, array.join('¤'));
@@ -53,11 +71,13 @@ export const saveLanguageStorage = (langKey: string) => {
 };
 
 export const deleteLanguageStorage = () => {
-  try {
-    window.localStorage.removeItem(FORCE_LANG);
-  } catch (ex) {
-    console.log('Cannot access localStorage for deletion');
-  }
+  removeItem(FORCE_LANG);
+};
+
+export const wipeAllSettings = () => {
+  all_settings.forEach((key) => {
+    removeItem(key);
+  });
 };
 
 export const getLanguageFromStorage = () => {

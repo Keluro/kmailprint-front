@@ -60,5 +60,6 @@ export default {
   DisplayDialog: 'Afficher la zone de dialogue après impression',
   OtherSettings: 'Autres paramètres',
   DialogWarningInfo:
-    'Le téléchargement automatique peut ne pas fonctionner en fonction de votre configuration de navigateur ou avec Outlook for Mac et Safari. Utilisez la boîte de dialog pour récupérer le fichier.'
+    'Le téléchargement automatique peut ne pas fonctionner en fonction de votre configuration de navigateur ou avec Outlook for Mac et Safari. Utilisez la boîte de dialog pour récupérer le fichier.',
+  ResetAllSettingsToDefault: 'Réinitialiser tous les paramètres'
 } as { [key: string]: string };

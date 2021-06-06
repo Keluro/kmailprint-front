@@ -57,5 +57,6 @@ export default {
   DisplayDialog: 'Display dialog after printing',
   OtherSettings: 'Other settings',
   DialogWarningInfo:
-    'Automated download may not work depending on your browser configuration or with Outlook for Mac and Safari. Use dialog to retreive the printed file.'
+    'Automated download may not work depending on your browser configuration or with Outlook for Mac and Safari. Use dialog to retreive the printed file.',
+  ResetAllSettingsToDefault: 'Reset all settings to default'
 } as { [key: string]: string };

@@ -6,7 +6,7 @@ import {
 } from '@fluentui/react';
 import React from 'react';
 import { LocaleContext } from '../providers/LocaleContext';
-import { getAllFormats, getFormat } from '../services/DateFormats';
+import { DateFormat, getAllFormats, getFormat } from '../services/DateFormats';
 import { SettingsResolverService } from '../services/SettingsResolverService';
 import { IServiceProps } from './IServiceProps';
 
@@ -19,9 +19,9 @@ const DatetimeSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
   );
   const settings = settingsResolver.getSettings();
 
-  const formats = getAllFormats().map((format: string) => {
+  const formats = getAllFormats().map((format) => {
     return {
-      key: format,
+      key: DateFormat[format],
       text: getFormat(settings.language, format)
     };
   });
@@ -31,7 +31,7 @@ const DatetimeSettings: React.FC<IServiceProps> = (props: IServiceProps) => {
     option?: IComboBoxOption
   ) => {
     if (option) {
-      settingsResolver.saveDateFormat(option.key as string);
+      settingsResolver.saveDateFormat(option.key as DateFormat);
     }
   };
 

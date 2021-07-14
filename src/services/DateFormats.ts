@@ -16,26 +16,20 @@
 
 import { Lang } from './Language';
 
-export const FORMAT_d = 'd';
-const FORMAT_D = 'D';
-const FORMAT_f = 'f';
-const FORMAT_g = 'g';
-const FORMAT_s = 's';
-const FORMAT_sbis = "'yyyy'-'MM'-'dd'_'HH':'mm':'ss'";
-const FORMAT_u = 'u';
-const FORMAT_U = 'U';
+export enum DateFormat {
+  d = 'd',
+  D = 'D',
+  f = 'f',
+  g = 'g',
+  s = 's',
+  u = 'u',
+  U = 'U'
+}
 
-export const getAllFormats = (): string[] => [
-  FORMAT_d,
-  FORMAT_D,
-  FORMAT_f,
-  FORMAT_g,
-  FORMAT_sbis,
-  FORMAT_u,
-  FORMAT_U
-];
+export const getAllFormats = (): DateFormat[] =>
+  Object.keys(DateFormat).map((s) => s as DateFormat);
 
-export const getFormat = (lang: Lang, format: string): string => {
+export const getFormat = (lang: Lang, format: DateFormat): string => {
   switch (lang) {
     case Lang.EN:
       return formattedUS(format);
@@ -44,26 +38,22 @@ export const getFormat = (lang: Lang, format: string): string => {
   }
 };
 
-const formattedFr = (format: string) => {
+const formattedFr = (format: DateFormat) => {
   switch (format) {
-    case FORMAT_d:
+    case DateFormat.d:
       return '12/07/1998';
-    case FORMAT_D:
+    case DateFormat.D:
       return 'dimanche 12 juillet 1998';
-    case FORMAT_f:
+    case DateFormat.f:
       return 'dimanche 12 juillet 1998 19:17';
-    case FORMAT_g:
+    case DateFormat.g:
       return '12/07/1998 19:17';
-    case FORMAT_s:
+    case DateFormat.s:
       return '1998-07-12T19:17:45';
-    case FORMAT_sbis:
-      return '1998-07-12_19:17:45';
-    case FORMAT_u:
+    case DateFormat.u:
       return '1998-07-12 19:17:45Z';
-    case FORMAT_U:
+    case DateFormat.U:
       return 'dimanche 12 juillet 1998 17:17:45';
-    default:
-      return '?';
   }
 };
 
@@ -75,25 +65,21 @@ const formattedFr = (format: string) => {
 // Printing format s : 1998-07-12T19:17:45
 // Printing format u : 1998-07-12 19:17:45Z
 // Printing format U : Sunday, July 12, 1998 5:17:45 PM
-const formattedUS = (format: string) => {
+const formattedUS = (format: DateFormat) => {
   switch (format) {
-    case FORMAT_d:
+    case DateFormat.d:
       return '7/12/1998';
-    case FORMAT_D:
+    case DateFormat.D:
       return 'Sunday, July 12, 1998';
-    case FORMAT_f:
+    case DateFormat.f:
       return 'Sunday, July 12, 1998 7:17 PM';
-    case FORMAT_g:
+    case DateFormat.g:
       return '7/12/1998 7:17 PM';
-    case FORMAT_s:
+    case DateFormat.s:
       return '1998-07-12T19:17:45';
-    case FORMAT_sbis:
-      return '1998-07-12_19:17:45';
-    case FORMAT_u:
+    case DateFormat.u:
       return '1998-07-12 19:17:45Z';
-    case FORMAT_U:
+    case DateFormat.U:
       return 'Sunday, July 12, 1998 5:17:45 PM';
-    default:
-      return '?';
   }
 };

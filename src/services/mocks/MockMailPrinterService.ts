@@ -2,7 +2,7 @@
 import axios from 'axios';
 import IMailPrinterService, { PrinterResult } from '../IMailPrinterService';
 import { Lang } from '../Language';
-import { DateFormat, getFormat } from '../DateFormats';
+import { getFormat } from '../DateFormats';
 import { TokenInfo } from '../TokenInfo';
 
 const timeout = (ms: number) => {
@@ -32,7 +32,7 @@ export class MockMailPrinterService implements IMailPrinterService {
   async getFormatedDateTimeSent(
     tokenInfo: TokenInfo,
     lang: Lang,
-    dateFormat: DateFormat
+    dateFormat: string
   ) {
     await timeout(500);
     return getFormat(lang, dateFormat);

@@ -2,7 +2,6 @@ import IMailPrinterService, { PrinterResult } from './IMailPrinterService';
 import { IOutlookService } from './IOulookService';
 import axios from 'axios';
 import { TokenInfo } from './TokenInfo';
-import { DateFormat } from './DateFormats';
 import { Lang } from './Language';
 import { SettingsResolverService } from './SettingsResolverService';
 
@@ -52,7 +51,7 @@ export class MailPrinterService implements IMailPrinterService {
   async getFormatedDateTimeSent(
     tokenInfo: TokenInfo,
     lang: Lang,
-    dateFormat: DateFormat
+    dateFormat: string
   ): Promise<string> {
     const server_url = process.env.API_URL;
     const userInfo = this.outlookService.getMyUserInfo();

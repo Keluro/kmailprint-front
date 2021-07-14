@@ -1,6 +1,6 @@
-import { DateFormat } from './DateFormats';
 import { FileTitleKind } from './FileTitleBuilderService';
 import { IOutlookService } from './IOulookService';
+import { FORMAT_d } from './DateFormats';
 import { Lang } from './Language';
 import {
   getPatternArrayFromStorage,
@@ -28,7 +28,7 @@ type Settings = {
   includeCC: boolean;
   fileTitlePattern: FileTitleKind[];
   paper: PrintPaper;
-  dateFormat: DateFormat;
+  dateFormat: string;
   displayDialog: boolean;
 };
 
@@ -75,7 +75,7 @@ export class SettingsResolverService {
     savePrintPaper(paper as string);
   }
 
-  public saveDateFormat(dateformat: DateFormat): void {
+  public saveDateFormat(dateformat: string): void {
     saveDateFormat(dateformat as string);
   }
 
@@ -121,12 +121,12 @@ export class SettingsResolverService {
     }
   };
 
-  private getDateFormatOrDefault = (): DateFormat => {
+  private getDateFormatOrDefault = (): string => {
     const savedValue = getDateFormatFromStorage();
     if (savedValue === undefined) {
-      return DateFormat.s;
+      return FORMAT_d;
     } else {
-      return savedValue as DateFormat;
+      return savedValue;
     }
   };
 

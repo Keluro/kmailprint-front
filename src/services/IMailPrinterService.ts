@@ -1,4 +1,3 @@
-import { DateFormat } from './DateFormats';
 import { Lang } from './Language';
 import { TokenInfo } from './TokenInfo';
 
@@ -16,6 +15,6 @@ export default interface IMailPrinterService {
   getFormatedDateTimeSent: (
     tokenInfo: TokenInfo,
     lang: Lang,
-    dateFormat: DateFormat
+    dateFormat: string
   ) => Promise<string>;
 }
